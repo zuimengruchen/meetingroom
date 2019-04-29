@@ -85,7 +85,7 @@
                                                 </td>
                                             </tr>
                                         </c:forEach>--%>
-                                        <c:forEach items="${external}" var="list">
+                                        <c:forEach items="${pageInfo.list}" var="list">
                                             <tr>
                                                 <td class="col-md-1 active text-center">
                                                     <input type="checkbox" name="" id="'${list.id}'" value=""/>
@@ -159,11 +159,13 @@
                                             </div>
                                         </div>
                                         <div class="row form-group">
-                                            <span class="col-sm-1 control-label"></span>
-                                            <label for="internal" class="col-sm-2 control-label">内/外联系人:</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="internal" name="internal" placeholder="">
-                                            </div>
+                                            <label for="internal" class="col-sm-3 control-label" style="margin-left: 50px">联系人:</label>
+                                            <select  id="internal" name="internal" class="form-control"
+                                                     style="width: 150px;height:35px"
+                                                     onchange="okIS(this.options[selectedIndex].value)"  style="margin-left: 50px">
+                                                <option value="1" >外部</option>
+                                                <option value="0" >内部</option>
+                                            </select>
                                         </div>
                                         <div class="row form-group">
                                             <span class="col-sm-1 control-label"></span>

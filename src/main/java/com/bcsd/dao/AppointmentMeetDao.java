@@ -1,8 +1,6 @@
 package com.bcsd.dao;
 
-import com.bcsd.entity.MeetRoom;
-import com.bcsd.entity.MeetUser;
-import com.bcsd.entity.Remeet;
+import com.bcsd.entity.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -28,5 +26,7 @@ public interface AppointmentMeetDao {
     void addUser(@Param("user") List<MeetUser> user);
 
 
+    List<HistoryMeet> findPageHistory(Integer id);
 
+    List<User> findHistoryUser(Integer id);
 }

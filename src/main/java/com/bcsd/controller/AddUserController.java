@@ -4,6 +4,7 @@ import com.bcsd.dao.AddUserDao;
 import com.bcsd.entity.MeetRoom;
 import com.bcsd.entity.Remeet;
 import com.bcsd.entity.User;
+import com.bcsd.entity.UserInternal;
 import com.bcsd.service.AddUserService;
 import com.bcsd.service.AppointmentMeetService;
 import com.bcsd.service.MeetUserService;
@@ -58,7 +59,7 @@ public class AddUserController {
             name = "";
         }
         ModelAndView vm = new ModelAndView();
-        List<User> list = meetUserService.findInternal(page, size, 0, name);
+        List<UserInternal> list = meetUserService.findInternal(page, size, 0);
         //PageInfo pageInfo = new PageInfo<>(list);
         vm.addObject("Internal", list);
         vm.addObject("meetId", meetId);

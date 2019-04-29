@@ -18,6 +18,33 @@
 
     </insert>
 
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,meetName,uri,requireCallId,defaultLayout,callId,nonMemberAccess,callProfile,callLegProfile,meetDate,meetTime,
+        meetLaber,meetDescription,meetRoomId,meetType,state,meetRoomName,userId
+    </sql>
 
+
+    <!--<select id="findPageHistory" parameterType="java.lang.Integer" resultType="com.bcsd.entity.Remeet">
+        select
+        <include refid="Base_Column_List"/>
+        from cj_appointment_meeting
+        where
+    </select>-->
+
+
+    <!--根据用户id查询参与的历史会议-->
+    <select id="findPageHistory" parameterType="java.lang.Integer" resultType="com.bcsd.entity.HistoryMeet">
+      select m.*
+      from `cj_history_user` h,cj_historyroom m,cj_user u
+      where h.mid=m.id and h.uid=u.id and h.uid = #{id}
+    </select>
+
+    <!--根据历史会议id查询参会人员-->
+    <select id="findHistoryUser" parameterType="java.lang.Integer" resultType="com.bcsd.entity.User">
+        select u.*
+          from `cj_history_user` h,cj_historyroom m,cj_user u
+          where h.mid=m.id and h.uid=u.id and h.mid=#{id}
+    </select>
 
 </mapper>

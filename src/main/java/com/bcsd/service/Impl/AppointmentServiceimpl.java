@@ -1,13 +1,16 @@
 package com.bcsd.service.Impl;
 
 import com.bcsd.dao.AppointmentMeetDao;
+import com.bcsd.entity.HistoryMeet;
 import com.bcsd.entity.Remeet;
+import com.bcsd.entity.User;
 import com.bcsd.service.AppointmentMeetService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("appointmentMeetService")
 public class AppointmentServiceimpl implements AppointmentMeetService {
@@ -48,4 +51,14 @@ public class AppointmentServiceimpl implements AppointmentMeetService {
     }
 
 
+
+    public List<HistoryMeet> findPageHistory(Integer page, Integer size, Integer id) {
+        PageHelper.startPage(page,size);
+        return appointmentMeetDao.findPageHistory(id);
+    }
+
+    public List<User> findHistoryUser(Integer page, Integer size,Integer id) {
+        PageHelper.startPage(page,size);
+        return appointmentMeetDao.findHistoryUser(id);
+    }
 }

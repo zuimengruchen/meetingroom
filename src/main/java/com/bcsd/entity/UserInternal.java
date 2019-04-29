@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class UserInternal implements Serializable {
 
-    private int id;
+    private Integer id;
+
     private String name;
     private String tel;
     private String email;
@@ -12,8 +13,8 @@ public class UserInternal implements Serializable {
     private String dept;
     private String company;
     private String username;
-    private int internal;
-    private int status;
+    private Integer internal;
+    private Integer status;
 
     @Override
     public String toString() {

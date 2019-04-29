@@ -75,7 +75,6 @@ pageEncoding="UTF-8"%>
                                     <option value="1" >武汉分部</option>
                                     <option value="2" >上海分部</option>
                                 </select>
-
                             </div>
 
                             <div class="col-sm-5 control-label">
@@ -90,27 +89,7 @@ pageEncoding="UTF-8"%>
 
     </div>
 </div>
-<!-- 添加修改对话框开始 -->
-
-
-<!-- 添加修改对话框结束 -->
 
 </body>
-
-<%
-    if ((String)request.getAttribute("addInfo") == "success") { %>
-<script>
-    alert("添加成功！");
-    window.location.reload();
-</script>
-<%}%><%
-    if ((String)request.getAttribute("deleteInfo") == "success") { %>
-<script>
-    alert("删除成功！");
-    window.location.reload();
-</script>
-<%}%>
-
-
 
 </html>

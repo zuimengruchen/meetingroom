@@ -3,6 +3,7 @@ package com.bcsd.service.Impl;
 import com.bcsd.dao.MeetRoomDao;
 import com.bcsd.entity.MeetRoom;
 import com.bcsd.service.MeetRoomService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,10 @@ public class MeetRoomServiceImpl implements MeetRoomService {
     @Autowired
     private MeetRoomDao meetRoomDao;
 
-    public List<MeetRoom> findAll() { return meetRoomDao.findAll(); }
+    public List<MeetRoom> findAll(Integer page,Integer size) {
+        PageHelper.startPage(page,size);
+        return meetRoomDao.findAll();
+    }
 
     public void add(MeetRoom meetRoom) throws ParseException {
         //设置roomId
@@ -31,7 +35,7 @@ public class MeetRoomServiceImpl implements MeetRoomService {
         //设置添加人
         meetRoom.setCreateUser("System");
         meetRoom.setLastUpdateUser("NULL");
-        meetRoom.setMeetingSubdept("NULL");
+        //meetRoom.setMeetingSubdept("NULL");
         try {
             meetRoomDao.add(meetRoom);
         } catch (Exception e) {

@@ -4,9 +4,12 @@ package com.bcsd.service;
 
 
 
+import com.bcsd.entity.HistoryMeet;
 import com.bcsd.entity.Remeet;
+import com.bcsd.entity.User;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface AppointmentMeetService {
@@ -26,4 +29,7 @@ public interface AppointmentMeetService {
     List<Remeet> findPage(int index,int size);
 
 
+    List<HistoryMeet> findPageHistory(Integer page, Integer size, Integer id);
+
+    List<User> findHistoryUser(Integer page, Integer size, Integer id);
 }

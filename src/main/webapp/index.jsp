@@ -65,10 +65,10 @@
                         <i class="fa fa-user"></i> 个人信息
                     </a>
 
-                    <a href="${pageContext.request.contextPath }/user/findInternal" class="dropdown-item" target="iframe">
+                    <a href="${pageContext.request.contextPath }/user/findInternal?page=1&size=10&internal=0" class="dropdown-item" target="iframe">
                         <i class="fa fa-wrench"></i> 内部联系人
                     </a>
-                    <a href="${pageContext.request.contextPath }/user/findExternal" class="dropdown-item" target="iframe">
+                    <a href="${pageContext.request.contextPath }/user/findInternal?page=1&size=10&internal=1" class="dropdown-item" target="iframe">
                         <i class="fa fa-wrench"></i> 外部联系人
                     </a>
 
@@ -106,7 +106,7 @@
 
                             <li class="nav-item">
 
-                                <a href="${pageContext.request.contextPath }/meetroom/meet_history" class="nav-link" target="iframe">
+                                <a href="${pageContext.request.contextPath }/appointreet/history" class="nav-link" target="iframe">
                                     <i class=""></i> 我的历史会议
                                 </a>
                             </li>
@@ -191,10 +191,6 @@
                             <li class="nav-item">
                                 <a href="${pageContext.request.contextPath }/mail/findPage" class="nav-link" target="iframe">
                                     <i class=""></i> 邮件管理
-                                </a>
-                            </li> <li class="nav-item">
-                                <a href="${pageContext.request.contextPath }/user/findInternal" class="nav-link" target="iframe">
-                                    <i class=""></i> 联系人
                                 </a>
                             </li>
                         </ul>
