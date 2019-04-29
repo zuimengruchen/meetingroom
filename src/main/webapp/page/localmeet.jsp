@@ -37,8 +37,11 @@ pageEncoding="UTF-8"%>
                     <div class=" container-fluid">
                         <form role="form" action="${pageContext.request.contextPath }/meetroom/appointmeet" method="post">
                         <div class=" col-md-12 form-group row">
-                            <%--隐藏会议id--%>
+
                             <input name="id" value="${meetId}" hidden>
+                            <%--隐藏会议室id--%>
+                            <input name="meetRoomId" value="${meetRoomId}" hidden>
+
                             <label  class=" form-control col-md-2 "style="border: 0px "><center>会议名称:</center></label>
                             <input id="meetName" name="meetName" style="height: 35px" class="form-control col-5" type="text" class="form-control">
                         </div>
@@ -79,7 +82,7 @@ pageEncoding="UTF-8"%>
                         <div class=" col-md-12 form-group row">
 
                             <label  class=" form-control col-md-2 "style="border: 0px " ><center>邀请参会人:</center></label>
-                            <input name="UserId" style="height: 35px" class="form-control col-5" type="text" class="form-control">
+                            <input readonly="readonly" name="UserId" style="height: 35px" class="form-control col-5" type="text" class="form-control">
                             <label  class=" form-control col-md-2 "style="border: 0px "><center><a href="${pageContext.request.contextPath }/addUser/findInternal?meetId=${meetId}">邀请参会人</a></center></label>
                         </div>
 

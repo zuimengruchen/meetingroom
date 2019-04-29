@@ -38,7 +38,7 @@ pageEncoding="UTF-8"%>
                                 <th class="active">
 
                                 </th>
-                                <th>会议名称</th>
+                                <th>会议名称 </th>
                                 <th>会议类型</th>
                                 <th>开始时间</th>
                                 <th>会议室</th>
@@ -54,7 +54,8 @@ pageEncoding="UTF-8"%>
                                       <center><input type="checkbox" name="" value=""/></center>
                                     </td>
                                     <td>
-                                        <a href="#"  data-toggle="modal" data-target="#login" style="color: #0c87eb">${list.meetName}</a>
+                                        <a href="${pageContext.request.contextPath }/addUser/finduser?meetid=${list.id}"  style="color: #0c87eb">${list.meetName}</a>
+
                                     </td>
                                     <td>${list.meetType}</td>
                                     <td>${list.meetDate}</td>
@@ -139,17 +140,19 @@ pageEncoding="UTF-8"%>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <c:forEach items="${user}" var="list">
                                     <tr>
                                         <td class="active">
                                             <input type="checkbox" name="" value=""/>
                                         </td>
-                                        <td class="text-nowrap">张山</td>
-                                        <td>人事部</td>
-                                        <td>男</td>
+                                        <td class="text-nowrap">${list.name}</td>
+                                        <td>${list.dept}</td>
+                                        <td>${list.sex}</td>
 
-                                        <td>13456789087</td>
-                                        <td>samsung@xx.com</td>
+                                        <td>${list.tel}</td>
+                                        <td>${lsit.email}</td>
                                     </tr>
+                                    </c:forEach>
                                     <tr>
                                         <td class="active">
                                             <input type="checkbox" name="" value=""/>

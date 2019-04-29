@@ -28,7 +28,7 @@
     <div class="container-fluid">
 
         <div class="card-header bg-light">
-            <a href="#">首页</a><span>&nbsp&nbsp >&nbsp&nbsp  </span><a href="#">预约本地会议</a>&nbsp&nbsp >&nbsp&nbsp<a href="#">添加联系人></a>
+            <a href="#">首页</a><span>&nbsp&nbsp >&nbsp&nbsp  </span><a href="#">预约本地会议</a>&nbsp&nbsp >&nbsp&nbsp<a href="#">邀请参会人></a>
         </div>
         <hr>
 
@@ -41,7 +41,7 @@
 
 
 
-                                <a class="btn btn-primary" data-toggle="tab" href="#Internal"  onclick="internal()" role="tab" aria-controls="Internal">添加联系人</a>
+                                <a class="btn btn-primary" data-toggle="tab" href="#Internal"  onclick="internal()" role="tab" aria-controls="Internal">添加参会人</a>
                             </li>
 
                            <%-- <li class="nav-item" style="width: 150px;margin-top: 10px">
@@ -84,16 +84,10 @@
                             </ul>
 
 
-                            <div style="float: right;margin: 5px;">
-
-
-                                <a class="btn btn-primary" href="javascript:void(0);" id="addSelected">邀请全部</a>
-
-                            </div>
                             <%--联系人列表--%>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="home1" role="tabpanel">
-                                   <form id="form" action="${pageContext.request.contextPath}/user/deleteInternals" method="post">
+                                    <form id="form" action="${pageContext.request.contextPath}/addUser/addUsers" method="post">
                                        <table class="table table-bordered" >
                                            <tr >
                                                <th class="col-md-1 active text-center" style="width: 30px">
@@ -109,7 +103,7 @@
                                            <c:forEach items="${Internal}" var="list">
                                                <tr>
                                                    <td class="col-md-1 active text-center">
-                                                       <input type="checkbox" name="uid" id="'${list.id}'" value=""/>
+                                                       <input type="checkbox" name="uid" id="'${list.id}'" value="${list.id}"/>
                                                    </td>
                                                    <td class="col-md-2 text-center" >${list.name}</td>
                                                    <td class="col-md-2 text-center" >${list.dept}</td>
@@ -120,7 +114,9 @@
                                                          <center><span class="btn btn-primary">邀请</span></center></a>
                                                    </td>
                                                </tr>
+
                                            </c:forEach>
+                                           <tr><input type="submit" class="btn btn-primary" value="邀请选中"/></tr>
                                        </table>
                                    </form>
                                 </div>
@@ -194,6 +190,9 @@
                                         </form>
                                     </table>
                                 </div>
+                                <div style="float: right">
+                                    <button type="button" class="btn btn-primary" onclick="history.back(-1);">返回</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -213,7 +212,9 @@
         //用户安全提示
         if (confirm("是否邀请？")) {
             //访问路径
+            alert("添加成功")
             location.href = "${pageContext.request.contextPath}/addUser/addUser?userId="+id+"&remeetId=${meetId}";
+
         }
     }
     window.onload = function(){

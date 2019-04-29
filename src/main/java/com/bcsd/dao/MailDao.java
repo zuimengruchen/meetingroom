@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
  * @author TANGXIAN
  */
 public interface MailDao {
-    List<Mail> findAll(@Param("status")String status);
+    List<Mail> findAll(@Param("status")int status);
     void add(Mail mail);
     Mail findByid(@Param("id")int id);
     void update(Mail mail);

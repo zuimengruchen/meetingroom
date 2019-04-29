@@ -1,7 +1,6 @@
 package com.bcsd.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.bcsd.dao.AppointmentMeetDao;
 import com.bcsd.entity.*;
 import com.bcsd.service.*;
 
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.List;
 
@@ -31,6 +31,8 @@ public class ReMeetRoomController {
     private AppointmentMeetService appointmentMeetService;
     @Autowired
     private HistoryMeetService historyMeetService;
+    @Autowired
+    private AddUserService addUserService;
 
     @Autowired
     private MeetUserService meetUserService;
@@ -122,12 +124,14 @@ public class ReMeetRoomController {
      * @return
      */
     @RequestMapping("remmet")
-    public ModelAndView remmet(@Param("id")String id,@RequestParam(value = "date")String date,@RequestParam(value = "time")String time,
-                               @RequestParam(value = "duration")String duration){
+    public ModelAndView remmet(@Param("id")String id, @RequestParam(value = "date")String date, @RequestParam(value = "time")String time,
+                               @RequestParam(value = "duration")String duration, HttpSession session){
+
         String datetime =date.trim()+" "+time.trim();
         ModelAndView vm=new ModelAndView();
         int num = (int)(Math.random()*1000000);
         MeetRoom meetRoom=reMeetRoomService.findById(id);
+        session.setAttribute("meetid",num);
         vm.addObject("datetime",datetime);
         vm.addObject("duration",duration);
         vm.addObject("meetRoom",meetRoom);
@@ -138,13 +142,16 @@ public class ReMeetRoomController {
 
     @RequestMapping("videoremeet")
     public ModelAndView video(@Param("id")String id,@RequestParam(value = "date")String date,@RequestParam(value = "time")String time,
-                              @RequestParam(value = "duration")String duration){
+                              @RequestParam(value = "duration")String duration,HttpSession session){
         String datetime =date.trim()+" "+time.trim();
         ModelAndView vm=new ModelAndView();
+        int num = (int)(Math.random()*1000000);
         MeetRoom meetRoom=reMeetRoomService.findById(id);
+        session.setAttribute("meetid",num);
         vm.addObject("datetime",datetime);
         vm.addObject("duration",duration);
         vm.addObject("meetRoom",meetRoom);
+        vm.addObject("meetId",num);
         vm.setViewName("page/videomeet");
         return vm;
     }
@@ -158,7 +165,9 @@ public class ReMeetRoomController {
     public ModelAndView appointmmet(Remeet remeet){
         ModelAndView vm=new ModelAndView();
         //增加数据进去
-        appointmentMeetService.appointmentMeet(remeet);
+
+        List<UserInternal> user =addUserService.findUserByMeetId(String.valueOf(remeet.getId()));
+        appointmentMeetService.appointmentMeet(remeet,user);
         List<Remeet> meets=appointmentMeetService.findPage(1,10);
         vm.addObject("meets",meets);
         PageInfo pageInfo = new PageInfo<Remeet>(meets);
@@ -174,8 +183,9 @@ public class ReMeetRoomController {
     @RequestMapping("appointVideoMeet")
     public ModelAndView appointVideoMeet(Remeet remeet){
         ModelAndView vm=new ModelAndView();
+        List<UserInternal> user =addUserService.findUserByMeetId(String.valueOf(remeet.getId()));
         //增加数据进去
-        appointmentMeetService.appointmentVideoMeet(remeet);
+        appointmentMeetService.appointmentVideoMeet(remeet,user);
 
         List<Remeet> meets=appointmentMeetService.findPage(1,10);
         vm.addObject("meets",meets);
@@ -188,7 +198,7 @@ public class ReMeetRoomController {
 
 
     @RequestMapping("myappointmeet")
-    public ModelAndView myappointmeet(Integer page,Integer size){
+    public ModelAndView myappointmeet(Integer page,Integer size,HttpSession session){
         if(page==null||page==0){
             page=1;
         }
@@ -197,8 +207,12 @@ public class ReMeetRoomController {
         }
         ModelAndView vm=new ModelAndView();
         List<Remeet> meets=appointmentMeetService.findPage(page,size);
+        String meetid=String.valueOf(session.getAttribute("meetid"));
+
         PageInfo pageInfo = new PageInfo<Remeet>(meets);
+        session.setAttribute("pageInfo",pageInfo);
         vm.addObject("pageInfo",pageInfo);
+
         vm.setViewName("page/meettable");
         return vm;
     }

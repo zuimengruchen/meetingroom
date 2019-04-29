@@ -6,4 +6,10 @@
         insert into cj_remeet_user (userId,meetId) values (#{userId},#{meetId})
     </insert>
 
+    <delete id="deleteUser">
+        delete from cj_remeet_user where userId =#{userId} and meetId=#{meetId}
+    </delete>
+    <select id="findUserByMeetId" resultType="com.bcsd.entity.UserInternal">
+        select * from cj_user_internal where id in(select userid from cj_remeet_user where meetID = #{1})
+    </select>
 </mapper>

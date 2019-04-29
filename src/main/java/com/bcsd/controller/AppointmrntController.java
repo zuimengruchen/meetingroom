@@ -1,12 +1,11 @@
 package com.bcsd.controller;
 
+import com.bcsd.dao.AddUserDao;
 import com.bcsd.entity.MeetRoom;
 import com.bcsd.entity.Remeet;
 import com.bcsd.entity.User;
-import com.bcsd.service.AppointmentMeetService;
-import com.bcsd.service.MeetRoomService;
-import com.bcsd.service.MeetUserService;
-import com.bcsd.service.ReMeetRoomService;
+import com.bcsd.entity.UserInternal;
+import com.bcsd.service.*;
 import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +29,8 @@ public class AppointmrntController {
     private ReMeetRoomService reMeetRoomService;
     @Autowired
     private MeetUserService meetUserService;
+    @Autowired
+    private AddUserService addUserService;
 
 
     @RequestMapping("videoremeet")
@@ -68,41 +69,8 @@ public class AppointmrntController {
     }
 
 
-    /**
-     * 预定本地会议
-     * @param
-     * @return
-     */
-    @RequestMapping("appointmeet")
-    public ModelAndView appointmmet(Remeet remeet){
-        ModelAndView vm=new ModelAndView();
-        //增加数据进去
-        appointmentMeetService.appointmentMeet(remeet);
-        List<Remeet> meets=appointmentMeetService.findPage(1,10);
-        vm.addObject("meets",meets);
-        PageInfo pageInfo = new PageInfo<Remeet>(meets);
-        vm.addObject("pageInfo",pageInfo);
-        vm.setViewName("page/meettable");
-        return vm;
-    }
-    /**
-     * 预定视屏会议
-     * @param
-     * @return
-     */
-    @RequestMapping("appointVideoMeet")
-    public ModelAndView appointVideoMeet(Remeet remeet){
-        ModelAndView vm=new ModelAndView();
-        //增加数据进去
-        appointmentMeetService.appointmentVideoMeet(remeet);
 
-        List<Remeet> meets=appointmentMeetService.findPage(1,10);
-        vm.addObject("meets",meets);
-        PageInfo pageInfo = new PageInfo<Remeet>(meets);
-        vm.addObject("pageInfo",pageInfo);
-        vm.setViewName("page/meettable");
-        return vm;
-    }
+
 
 
 

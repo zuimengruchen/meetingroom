@@ -6,8 +6,8 @@ import java.io.Serializable;
 
 public class Remeet implements Serializable {
 
-   private Integer id;                     //会议ID
-   private String  meetName;               //会议名称
+    private Integer id;                     //会议ID
+    private String  meetName;               //会议名称
     private Integer uri;                      //调用api所需参数
     private String requireCallId;             //调用api所需参数
     private String defaultLayout;             //调用api所需参数

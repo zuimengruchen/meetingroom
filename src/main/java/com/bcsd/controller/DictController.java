@@ -39,7 +39,7 @@ public class DictController  {
             size=5;
         }
         List<Dict> list = dictService.findPage(page, size);
-        PageInfo pageInfo = new PageInfo<>(list);
+        PageInfo pageInfo = new PageInfo<Dict>(list);
         ModelAndView vm=new ModelAndView();
         vm.addObject("pageInfo",pageInfo);
         vm.setViewName(PREFIX+"/dict_home");

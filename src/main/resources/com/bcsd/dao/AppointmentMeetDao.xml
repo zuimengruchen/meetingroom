@@ -8,13 +8,13 @@
 
 
     <insert id="appointmentMeet" parameterType="com.bcsd.entity.Remeet">
-      insert into cj_appointment_meeting(meetName,meetDate,meetTime,meetlaber,meetDescription,meetType,meetRoomId,meetRoomName,state,userId)
-        VALUES (#{meetName},#{meetDate},#{meetTime},#{meetLaber},#{meetDescription},#{meetType},#{meetRoomId},#{meetRoomName},1,#{userId})
+      insert into cj_appointment_meeting(id,meetName,meetDate,meetTime,meetlaber,meetDescription,meetType,meetRoomId,meetRoomName,state,userId)
+        VALUES (#{id},#{meetName},#{meetDate},#{meetTime},#{meetLaber},#{meetDescription},#{meetType},#{meetRoomId},#{meetRoomName},1,#{userId})
     </insert>
 
     <insert id="appointmentVideoMeet" parameterType="com.bcsd.entity.Remeet">
-         insert into cj_appointment_meeting(meetName,uri,requireCallId,defaultLayout,callId,nonMemberAccess,callProfile,callLegProfile,meetDate,meetTime,meetlaber,meetDescription,meetType,meetRoomId,meetRoomName,state,userId)
-        VALUES (#{meetName},#{uri},#{requireCallId},#{defaultLayout},#{callId},#{nonMemberAccess},#{callProfile},#{callLegProfile},#{meetDate},#{meetTime},#{meetLaber},#{meetDescription},#{meetType},#{meetRoomId},#{meetRoomName},1,#{userId})
+         insert into cj_appointment_meeting(id,meetName,uri,requireCallId,defaultLayout,callId,nonMemberAccess,callProfile,callLegProfile,meetDate,meetTime,meetlaber,meetDescription,meetType,meetRoomId,meetRoomName,state,userId)
+        VALUES (#{id},#{meetName},#{uri},#{requireCallId},#{defaultLayout},#{callId},#{nonMemberAccess},#{callProfile},#{callLegProfile},#{meetDate},#{meetTime},#{meetLaber},#{meetDescription},#{meetType},#{meetRoomId},#{meetRoomName},1,#{userId})
 
     </insert>
 
