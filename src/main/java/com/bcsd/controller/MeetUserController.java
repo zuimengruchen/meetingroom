@@ -109,74 +109,51 @@ public class MeetUserController {
      * @param page       当前页码
      * @param size       每页显示数
      * @param internal 联系人
-     * @param name       条件查询
      * @return
      */
     @RequestMapping("findInternal")
-    public ModelAndView findInternal(Integer page, Integer size, Integer internal, String name){
+    public ModelAndView findInternal(Integer page, Integer size, Integer internal){
         if (page == null || page == 0) {
             page = 1;
         }
         if (size == null || size == 0) {
-            size = 5;
+            size = 10;
         }
-        if (internal == null || internal != 1) {
-            internal = 0;
-        }
-        if (name == null) {
-            name = "";
+        if (internal==null){
+            internal=0;
         }
         ModelAndView vm = new ModelAndView();
-        List<User> list = meetUserService.findInternal(page, size, 0, name);
-        //PageInfo pageInfo = new PageInfo<>(list);
-        vm.addObject("Internal", list);
-//        if (isExternal==1){
-//            List<User> list = meetUserService.findExternal(page, size, isExternal, name);
-//            pageInfo = new PageInfo<>(list);
-//            vm.addObject("External",pageInfo);
-//        }
-        vm.setViewName(PREFIX + "/linkman1");
+        List<UserInternal> list = meetUserService.findInternal(page, size, internal);
+        PageInfo pageInfo = new PageInfo<UserInternal>(list);
+        vm.addObject("pageInfo", pageInfo);
+        if (internal==0){
+            vm.setViewName(PREFIX + "/linkman1");
+        }
+        if (internal==1){
+            vm.setViewName(PREFIX + "/linkman2");
+        }
         return vm;
-//        ObjectMapper mapper = new ObjectMapper();
-//        String s = mapper.writeValueAsString(pageInfo);
-//        request.setAttribute("internal",pageInfo);
-//        request.getRequestDispatcher("page/user/linkman1.jsp").forward(request,response);
-//        response.sendRedirect("page/user/linkman1.jsp");
-        //return "linkman1.jsp";
     }
 
-    /**
-     * 查询外部联系人
-     * @param page
-     * @param size
-     * @param internal
-     * @param name
-     * @return
-     */
+  /*
     @RequestMapping("findExternal")
-    public ModelAndView findExternal(Integer page, Integer size, Integer internal, String name) {
+    public ModelAndView findExternal(Integer page, Integer size, Integer internal) {
         if (page == null || page == 0) {
             page = 1;
         }
         if (size == null || size == 0) {
-            size = 5;
+            size = 10;
         }
-        if (internal == null|| internal != 0) {
             internal = 1;
-        }
-        if (name == null) {
-            name = "";
-        }
+
         ModelAndView vm = new ModelAndView();
 
-        List<MeetUser> list = meetUserService.findExternal(page, size, 1, name);
-        //PageInfo pageInfo = new PageInfo<>(list);
-        vm.addObject("external", list);
-
-        // request.setAttribute("external",pageInfo);
+        List<UserInternal> list = meetUserService.findExternal(page, size, internal);
+        PageInfo pageInfo = new PageInfo<UserInternal>(list);
+        vm.addObject("pageInfo", pageInfo);
         vm.setViewName(PREFIX + "/linkman2");
         return vm;
-    }
+    }*/
 
 
     /**
@@ -222,4 +199,7 @@ public class MeetUserController {
         meetUserService.deleteInternal(ids);
         return "redirect:findInternal";
     }
+
+
+
 }

@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * 字典功能
+ */
 
 @Controller
 @RequestMapping("/dict")
@@ -46,6 +50,13 @@ public class DictController  {
         return vm;
     }
 
+    /**
+     * 通过父id查询下一级
+     * @param page
+     * @param size
+     * @param pid
+     * @return
+     */
     @RequestMapping("/findByPid")
     public ModelAndView findByPid(Integer page,Integer size,Integer pid){
         if (page==null||page==0){
@@ -73,7 +84,7 @@ public class DictController  {
     }
 
     /**
-     * 修改会议室
+     * 修改字典
      * @param dict
      * @return
      */
@@ -84,7 +95,7 @@ public class DictController  {
     }
 
     /**
-     * 添加会议室
+     * 添加字典
      * @param
      * @return
      */
@@ -101,9 +112,24 @@ public class DictController  {
      * @return
      */
     @RequestMapping("/delete")
-    public String Method(@RequestParam(value="dictId") int dictId){
+    public String delete(@RequestParam(value="dictId") int dictId){
         System.out.println(dictId);
         dictService.delete(dictId);
+        return "redirect:findPage";
+    }
+
+    /**
+     * 删除字典
+     * @param
+     * @return
+     */
+    @RequestMapping("/deletes")
+    public String deletes(HttpServletRequest request){
+        String[] ids = request.getParameterValues("dictId");
+        System.out.println(ids);
+        for (String dictId : ids) {
+            dictService.delete(Integer.parseInt(dictId));
+        }
         return "redirect:findPage";
     }
 

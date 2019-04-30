@@ -1,5 +1,10 @@
 package com.bcsd.controller;
 
+import com.bcsd.entity.*;
+import com.bcsd.service.AppointmentMeetService;
+import com.bcsd.service.MeetRoomService;
+import com.bcsd.service.MeetUserService;
+import com.bcsd.service.ReMeetRoomService;
 import com.bcsd.dao.AddUserDao;
 import com.bcsd.entity.MeetRoom;
 import com.bcsd.entity.Remeet;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -47,7 +53,7 @@ public class AppointmrntController {
     }
 
     @RequestMapping("findInternal")
-    public ModelAndView findInternal(Integer page, Integer size, Integer internal, String name){
+    public ModelAndView findInternal(Integer page, Integer size, Integer internal){
         if (page == null || page == 0) {
             page = 1;
         }
@@ -57,11 +63,9 @@ public class AppointmrntController {
         if (internal == null || internal != 1) {
             internal = 0;
         }
-        if (name == null) {
-            name = "";
-        }
+
         ModelAndView vm = new ModelAndView();
-        List<User> list = meetUserService.findInternal(page, size, 0, name);
+        List<UserInternal> list = meetUserService.findInternal(page, size, 0);
         //PageInfo pageInfo = new PageInfo<>(list);
         vm.addObject("Internal", list);
         vm.setViewName("page/addUser/linkman1");
@@ -87,6 +91,55 @@ public class AppointmrntController {
         PageInfo pageInfo = new PageInfo<Remeet>(meets);
         vm.addObject("pageInfo",pageInfo);
         vm.setViewName("page/meettable");
+        return vm;
+    }
+
+
+    /**
+     * 根据用户id查询我的历史会议
+     * @param page
+     * @param size
+     * @param id      用户id,暂时固定
+     * @return
+     */
+    @RequestMapping("/history")
+    public ModelAndView findHistory(Integer page,Integer size,Integer id){
+        if(page==null||page==0){
+            page=1;
+        }
+        if(size==null||size==0){
+            size=10;
+        }
+        id=1;
+        List<HistoryMeet> list = appointmentMeetService.findPageHistory(page, size, id);
+        ModelAndView vm=new ModelAndView();
+        PageInfo pageInfo = new PageInfo<HistoryMeet>(list);
+        vm.addObject("pageInfo",pageInfo);
+        vm.setViewName("page/meet_history");
+        return vm;
+    }
+
+
+    /**
+     * 根据历史会议id查询参会人员
+     * @param page
+     * @param size
+     * @param id  历史会议id
+     * @return
+     */
+    @RequestMapping("/findHistoryUser")
+    public ModelAndView findHistoryUser(Integer page,Integer size,Integer id){
+        if (page == null || page == 0) {
+            page = 1;
+        }
+        if (size == null || size == 0) {
+            size = 10;
+        }
+        ModelAndView vm = new ModelAndView();
+        List<User> list = appointmentMeetService.findHistoryUser(page,size,id);
+        PageInfo<User> pageInfo = new PageInfo<User>(list);
+        vm.addObject("pageInfo",pageInfo);
+        vm.setViewName("page/user/historymeet");
         return vm;
     }
 

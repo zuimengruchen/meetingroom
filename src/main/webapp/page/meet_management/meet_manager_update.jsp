@@ -110,7 +110,7 @@
                                <div class="form-group" id="room">
                                    <label for="roomName" class="col-sm-2 control-label"></label>
                                    <div class="col-sm-5">
-                                       <input type="text" class="form-control" id="roomId" value="${meetRoom.roomId}" placeholder="">
+                                       <input type="text" class="form-control" id="roomId" name="roomId" value="${meetRoom.roomId}" placeholder="">
                                    </div>
                                </div>
                                <div class="form-group">
@@ -170,7 +170,7 @@
                                <div class="form-group">
                                    <label for="isStart" class="col-sm-2 control-label">是否启用:</label>
                                    <div class="col-sm-5">
-                                       <input type="text" class="form-control" id="isStart" name="isStart" value="${meetRoom.isStart}" placeholder="">
+                                       <input type="text" class="form-control" id="isStart" name="isStart" value="${meetRoom.isStart}" placeholder="启用1/禁用0">
                                    </div>
                                </div>
                                <div class="form-group">

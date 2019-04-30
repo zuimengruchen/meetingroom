@@ -35,15 +35,11 @@ pageEncoding="UTF-8"%>
 
         <div class="card-header bg-light">
             <div class="row">
-
                 <div class="col-md-12">
-                    <div >
-                        <form class="navbar-form navbar-right">
+                        <form  method="post" action="${pageContext.request.contextPath}/meet/deletes">
                             <a href="${pageContext.request.contextPath }/page/meet_management/meet_manager_add.jsp" class="btn btn-primary">添加会议室</a>
-                            <a class="btn btn-primary" href="javascript:void(0);" id="delSelected">删除选中</a>
-                        </form>
-                    </div>
-                    <div >
+                            <%--<a class="btn btn-primary" href="javascript:void(0);" id="delSelected">删除选中</a>--%>
+                            <button class="btn btn-primary"  id="delSelected">删除选中</button>
                         <table class="table table-bordered" id="meetRoomList">
                             <tr class="active">
                                 <th class="active">
@@ -58,10 +54,10 @@ pageEncoding="UTF-8"%>
                                 <th class="text-center">是否启用</th>
                                 <th class="text-center">操作</th>
                             </tr>
-                            <c:forEach items="${meetRoomList}" var="list">
+                            <c:forEach items="${pageInfo.list}" var="list">
                                 <tr class="active">
                                     <td class="active">
-                                        <input type="checkbox" name="uid"  value="" id="'${list.roomId}'" />
+                                        <input type="checkbox" name="roomId"  value="${list.roomId}" />
                                     </td>
                                     <td><u><a href="#" style="color: #0c87eb"  class="text-center">${list.roomName}</a></u></td>
                                     <td class="text-center">${list.roomType}</td>
@@ -69,38 +65,64 @@ pageEncoding="UTF-8"%>
                                     <td class="text-center">${list.roomAreaName}</td>
                                     <td class="text-center">${list.callIp}</td>
                                     <td class="text-center">${list.manager}</td>
-                                    <td class="text-center"><a href="#">启用</a></td>
+                                   <%-- <td class="text-center">${list.isStart}</td>--%>
+                                    <c:if test="${list.isStart == 1}">
+                                        <td class="text-center">启用</td>
+                                        </c:if>
+
+                                        <c:if test="${list.isStart == 0}">
+                                            <td class="text-center">禁用</td>
+                                        </c:if>
                                     <!--<td>xx</td>-->
                                     <td class="text-center">
                                         <form class="navbar-form">
                                             <a href="${pageContext.request.contextPath}/meet/findOne?roomId=${list.roomId}" class="btn btn-default" >修改</a>
                                             <a href="${pageContext.request.contextPath}/meet/delete?roomId=${list.roomId}" class="btn btn-danger" >删除</a>
-<%--
-                                            <a class="btn btn-default btn-sm" href="javascript:deleteRoom(${list.roomId});">删除</a>
---%>
                                             <%--<a class="btn btn-default btn-sm" href="javascript:deleteRoom(${list.roomId});">删除1</a>--%>
                                         </form>
                                     </td>
                                 </tr>
                             </c:forEach>
-
                         </table>
-                    </div>
-                    <div>
-                        <div class="box-border pull-right">
-                            <ul class="pagination">
-                                <li><a href="#" aria-label="Previous">首页</a></li>
-                                <li><a href="#">上一页</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">下一页</a></li>
-                                <li><a href="#" aria-label="Next">尾页</a></li>
-                            </ul>
+                        </form>
+                        <div>
+                            <div class="pull-left">
+                                <div class="form-group form-inline">
+                                    总共${pageInfo.pages}页，共${pageInfo.total} 条数据。 每页
+                                    10条
+                                </div>
+                            </div>
+                            <div>
+                                <ul class="pagination ">
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/meet/findAll?page=1&size=${pageInfo.pageSize}"
+                                           aria-label="Previous">首页</a>
+                                        <%-- <a href="${pageContext.request.contextPath}/mail/findPage?page=1&size=${pageInfo.pageSize}" aria-label="Previous">首页</a> --%>
+                                    </li>
+                                    <c:if test="${pageInfo.pageNum!=1}">
+                                        <li>
+                                            <a href="${pageContext.request.contextPath}/meet/findAll?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}">&laquo;</a>
+                                        </li>
+                                    </c:if>
+                                    <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                                        <li>
+                                            <a href="${pageContext.request.contextPath}/meet/findAll?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a>
+                                        </li>
+                                    </c:forEach>
+                                    <c:if test="${pageInfo.pages!=pageInfo.pageNum}">
+                                        <li>
+                                            <a href="${pageContext.request.contextPath}/meet/findAll?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}">&raquo;</a>
+                                        </li>
+                                    </c:if>
+
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/meet/findAll?page=${pageInfo.pages}&size=${pageInfo.pageSize}"
+                                           aria-label="Next">尾页</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -129,14 +151,15 @@ pageEncoding="UTF-8"%>
 
     window.onload = function(){
         //给删除选中按钮添加单击事件
-        document.getElementById("delSelected").click = function(){
+        document.getElementById("delSelected").onclick = function(){
             if(confirm("您确定要删除选中条目吗？")){
 
                 var flag = false;
                 //判断是否有选中条目
-                var cbs = document.getElementsByName("uid");
+                var cbs = document.getElementsByName("roomId");
                 for (var i = 0; i < cbs.length; i++) {
                     if(cbs[i].checked){
+                        //alert(cbs[i]);
                         //有一个条目选中了
                         flag = true;
                         break;
@@ -151,7 +174,7 @@ pageEncoding="UTF-8"%>
         //1.获取第一个cb
         document.getElementById("firstCb").onclick = function(){
             //2.获取下边列表中所有的cb
-            var cbs = document.getElementsByName("uid");
+            var cbs = document.getElementsByName("roomId");
             //3.遍历
             for (var i = 0; i < cbs.length; i++) {
                 //4.设置这些cbs[i]的checked状态 = firstCb.checked
@@ -161,4 +184,14 @@ pageEncoding="UTF-8"%>
 
     }
  </script>
+<%--页面刷新停留在原来的位置--%>
+<%--<script type="text/javascript">
+    $(function () {
+        window.scrollTo(0, $("#hdnvalue").val());
+
+        $("#rdoBusinessDriver,#rdoDangerPrac,#ddlPracTypeSmallCatelog").click(function () {
+            $("#hdnvalue").val(document.documentElement.scrollTop);
+        });
+    });
+</script>--%>
 </html>

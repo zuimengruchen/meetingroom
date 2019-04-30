@@ -75,7 +75,7 @@ public class AddUserController {
             name = "";
         }
         ModelAndView vm = new ModelAndView();
-        List<User> list = meetUserService.findInternal(page, size, 0, name);
+        List<UserInternal> list = meetUserService.findInternal(page, size, 0);
         //PageInfo pageInfo = new PageInfo<>(list);
         vm.addObject("Internal", list);
         vm.addObject("meetId", meetId);

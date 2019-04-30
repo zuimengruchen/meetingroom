@@ -21,7 +21,6 @@ pageEncoding="UTF-8"%>
     <script src="${pageContext.request.contextPath }/js/carbon.js"></script>
     <script src="${pageContext.request.contextPath }/js/demo.js"></script>
 
-
 </head>
 <body class="sidebar-fixed header-fixed">
 <div class="content">
@@ -80,13 +79,9 @@ pageEncoding="UTF-8"%>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
-<!-- 添加修改对话框开始 -->
 
-
-<!-- 添加修改对话框结束 -->
 
 </body>
 
@@ -103,7 +98,7 @@ pageEncoding="UTF-8"%>
     window.location.reload();
 </script>
 <%}%>
-
+<%--隐藏id--%>
 <script>
     document.getElementById("dict").style.display="none";
 </script>

@@ -19,11 +19,13 @@ public interface MeetUserService {
     void update(MeetUser meetUser);
     void delete(String id);
 
-    public List<User> findInternal(Integer page, Integer size, Integer internal, String name);
-    public List<MeetUser> findExternal(Integer page, Integer size, Integer internal, String name);
+    public List<UserInternal> findInternal(Integer page, Integer size, Integer internal);
+   // public List<UserInternal> findExternal(Integer page, Integer size, Integer internal);
 
     void addInternal(UserInternal internal);
 
     void deleteInternal(Integer id);
     void deleteInternal(Integer[] ids);
+
+
 }

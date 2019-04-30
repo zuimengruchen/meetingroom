@@ -21,13 +21,14 @@ public interface MeetUserDao {
 
 
     /*查询联系人*/
-    List<User> findInternal(Integer internal, String name);
+    List<UserInternal> findInternal(Integer internal);
 
-    List<MeetUser> findExternal(Integer internal, String name);
+    //List<UserInternal> findExternal(Integer internal);
 
     void addInternal(UserInternal internal);
 
     void deleteInternal(Integer id);
+
 
 
 }

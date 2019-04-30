@@ -2,6 +2,7 @@ package com.bcsd.controller;
 
 import com.bcsd.entity.MeetRoom;
 import com.bcsd.service.MeetRoomService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -9,7 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+
+/**
+ * 会议室管理功能
+ */
 
 @Controller
 @RequestMapping("/meet")
@@ -28,11 +35,18 @@ public class MeetRoomController {
      * @return
      */
     @RequestMapping("/findAll")
-    public ModelAndView findAll(){
+    public ModelAndView findAll(Integer page,Integer size){
+        if(page==null||page==0){
+            page=1;
+        }
+        if(size==null||size==0){
+            size=10;
+        }
         System.out.println("查询所有会议室");
         ModelAndView vm=new ModelAndView();
-        List<MeetRoom> meetRoomList = meetRoomService.findAll();
-        vm.addObject("meetRoomList",meetRoomList);
+        List<MeetRoom> meetRoomList = meetRoomService.findAll(page,size);
+        PageInfo pageInfo=new PageInfo<MeetRoom>(meetRoomList);
+        vm.addObject("pageInfo",pageInfo);
         vm.setViewName(PREFIX);
         return vm;
     }
@@ -67,6 +81,11 @@ public class MeetRoomController {
         return "redirect:findAll";
     }
 
+    /**
+     * 修改会议室信息
+     * @param meetRoom
+     * @return
+     */
     @RequestMapping("/update")
     public String update(MeetRoom meetRoom){
         meetRoomService.update(meetRoom);
@@ -79,10 +98,29 @@ public class MeetRoomController {
      * @return
      */
     @RequestMapping("/delete")
-    public String Method(@RequestParam(value="roomId") String roomId){
+    public String delete(@RequestParam(value="roomId") String roomId){
        // System.out.println(roomId);
         ModelAndView vm=new ModelAndView();
         meetRoomService.delete(roomId);
+      /*  vm.addObject("deleteInfo","success");
+        System.out.println("删除成功!");
+        vm.setViewName("page/meet_management");*/
+        return "redirect:findAll";
+    }
+
+    /**
+     * 删除会议室
+     * @param
+     * @return
+     */
+    @RequestMapping("/deletes")
+    public String deletes(HttpServletRequest request){
+        String[] ids = request.getParameterValues("roomId");
+        System.out.println(ids);
+        for (String roomId : ids) {
+            meetRoomService.delete(roomId);
+        }
+        ModelAndView vm=new ModelAndView();
       /*  vm.addObject("deleteInfo","success");
         System.out.println("删除成功!");
         vm.setViewName("page/meet_management");*/

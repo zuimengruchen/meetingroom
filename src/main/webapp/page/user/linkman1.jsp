@@ -69,22 +69,12 @@
                                alert(key +":" +person[key]);
                            }
                        },"json");
-
                     }
-                    function external() {
-
-                    }
-                    $(function () {
-                        init();
-                        function init() {
-                            $.get("user/internal",{page:1,size:5,isExternal:0});
-                        }
-                    });
                 </script>
 
                 <div class="tab-content col-md-10">
                     <%--内部联系人--%>
-                    <div class="tab-pane active" id="Internal" role="tabpanel">
+                    <div class="tab-pane active"  role="tabpanel">
                         <div class="col-md-12 mb-4">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
@@ -116,28 +106,15 @@
                                                <th class="col-md-2 text-center">E-mail</th>
                                                <th class="col-md-2 text-center">操作</th>
                                            </tr>
-                                           <%-- <c:forEach items="${Internal.list}" var="list">
-                                                <tr>
-                                                    <td class="col-md-2 text-center" id="name">${list.name}</td>
-                                                    <td class="col-md-2 text-center" id="depaname">${list.deptname}</td>
-                                                    <td class="col-md-2 text-center" id="tel">${list.tel}</td>
-                                                    <td class="col-md-2 text-center" id="email">${list.email}</td>
-                                                    <td><a href="javascript:void(0);">
-                                                        <span class="glyphicon glyphicon-search text-left">查看</span></a>
-                                                        <a href="javascript:void(0);" userId="#" class="text-right">
-                                                            <span class="btn btn-danger">删除</span> </a>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>--%>
-                                           <c:forEach items="${Internal}" var="list">
+                                           <c:forEach items="${pageInfo.list}" var="list">
                                                <tr>
                                                    <td class="col-md-1 active text-center">
                                                        <input type="checkbox" name="uid" id="'${list.id}'" value=""/>
                                                    </td>
-                                                   <td class="col-md-2 text-center" id="name">${list.name}</td>
-                                                   <td class="col-md-2 text-center" id="depaname">${list.dept}</td>
-                                                   <td class="col-md-2 text-center" id="tel">${list.tel}</td>
-                                                   <td class="col-md-2 text-center" id="email">${list.email}</td>
+                                                   <td class="col-md-2 text-center" >${list.name}</td>
+                                                   <td class="col-md-2 text-center" >${list.dept}</td>
+                                                   <td class="col-md-2 text-center" >${list.tel}</td>
+                                                   <td class="col-md-2 text-center" >${list.email}</td>
                                                    <td><a href="javascript:void(0);">
                                                        <span class="glyphicon glyphicon-search text-left">修改</span></a>
                                                        <a href="javascript:deleteLinkman(${list.id});"  class="text-right">
@@ -236,12 +213,21 @@
                                                     <input type="text" class="form-control" id="company" name="company" placeholder="">
                                                 </div>
                                             </div>
-                                            <div class="row form-group">
+                                           <%-- <div class="row form-group">
                                                 <span class="col-sm-1 control-label"></span>
                                                 <label for="internal" class="col-sm-2 control-label">内/外联系人:</label>
                                                 <div class="col-sm-8">
                                                     <input type="text" class="form-control" id="internal" name="internal" placeholder="">
                                                 </div>
+                                            </div>--%>
+                                            <div class="row form-group">
+                                                <label for="internal" class="col-sm-3 control-label" style="margin-left: 50px">联系人:</label>
+                                                <select  id="internal" name="internal" class="form-control"
+                                                         style="width: 150px;height:35px"
+                                                         onchange="okIS(this.options[selectedIndex].value)"  style="margin-left: 50px">
+                                                    <option value="0" >内部</option>
+                                                    <option value="1" >外部</option>
+                                                </select>
                                             </div>
                                             <div class="row form-group">
                                                 <span class="col-sm-1 control-label"></span>

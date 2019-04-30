@@ -35,13 +35,12 @@
         <div class="card-header bg-light">
             <div class="row">
                 <div class="col-md-12">
-                    <div>
-                        <form class="navbar-form navbar-right">
-                            <a href="${pageContext.request.contextPath }/page/dict/dict_add.jsp"
-                               class="btn btn-primary">添加字典</a>
-                        </form>
-                    </div>
-                    <div class="text-center">
+
+                    <form  method="post" action="${pageContext.request.contextPath}/dict/deletes">
+                        <a href="${pageContext.request.contextPath }/page/dict/dict_add.jsp"
+                           class="btn btn-primary">添加字典</a>
+                        <button class="btn btn-primary"  id="delSelected">删除选中</button>
+
                         <table class="table table-bordered text-center">
                             <thead>
                             <tr class="text-center">
@@ -59,7 +58,7 @@
                             <c:forEach items="${pageInfo.list}" var="list">
                                 <tr>
                                     <td class="active">
-                                        <input type="checkbox" name="uid" id="'${list.dictId}'" value=""/>
+                                        <input type="checkbox" name="dictId" value="${list.dictId}"/>
                                     </td>
                                     <td>${list.name}</td>
                                     <td>${list.code}</td>
@@ -79,9 +78,10 @@
                             </c:forEach>
                             </tbody>
                         </table>
+                    </form>
                         <script>
                             function deleteDict(id) {
-                            alert(id);
+                            //alert(id);
                             //用户安全提示
                             if (confirm("您确定要删除吗？")) {
                                 //访问路径
@@ -95,11 +95,11 @@
                                 <div class="form-group form-inline">
                                     总共${pageInfo.pages}页，共${pageInfo.total} 条数据。 每页
                                     <select id="changePageSize" onchange="changePageSize()">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
                                         <option>5</option>
+                                        <option>4</option>
+                                        <option>3</option>
+                                        <option>2</option>
+                                        <option>1</option>
                                     </select> 条
                                 </div>
                             </div>
@@ -110,18 +110,22 @@
                                            aria-label="Previous">首页</a>
                                         <%-- <a href="${pageContext.request.contextPath}/dict/findPage?page=1&size=${pageInfo.pageSize}" aria-label="Previous">首页</a> --%>
                                     </li>
+                                    <c:if test="${pageInfo.pageNum!=1}">
                                     <li>
                                         <a href="${pageContext.request.contextPath}/dict/findPage?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}">&laquo;</a>
                                     </li>
+                                    </c:if>
                                     <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
                                         <li>
                                             <a href="${pageContext.request.contextPath}/dict/findPage?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a>
                                         </li>
                                     </c:forEach>
+                                    <c:if test="${pageInfo.pages!=pageInfo.pageNum}">
                                     <li>
                                         <a href="${pageContext.request.contextPath}/dict/findPage?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}">&raquo;</a>
                                     </li>
-                                    <li>
+                                    </c:if>
+
                                     <li>
                                         <a href="${pageContext.request.contextPath}/dict/findPage?page=${pageInfo.pages}&size=${pageInfo.pageSize}"
                                            aria-label="Next">尾页</a>
@@ -129,7 +133,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -141,23 +145,15 @@
 <script type="text/javascript">
 
 
-    /*$(document).ready(function () {
-        $.ajax({
-            type: "GET",//请求方式
-            url: "../../dict/findPage",//访问url
-            dataType:"json",//服务器返回的数据类型
-        })
-    });*/
-
     function changePageSize() {
         //获取下拉框的值
         var pageSize = $("#changePageSize").val();
 
         //向服务器发送请求，改变没页显示条数
-        //location.href = "${pageContext.request.contextPath}/dict/findPage?page=1&size=" + pageSize;
+        location.href = "${pageContext.request.contextPath}/dict/findPage?page=1&size=" + pageSize;
     }
 
-    $("#selectAll").click(function () {
+    $("#selectAll").onclick(function () {
         var clicks = $(this).is(':checked');
         if (!clicks) {
             $("#dataList td input[type='checkbox']").iCheck("uncheck");
@@ -184,7 +180,7 @@
 
                 var flag = false;
                 //判断是否有选中条目
-                var cbs = document.getElementsByName("uid");
+                var cbs = document.getElementsByName("dictId");
                 for (var i = 0; i < cbs.length; i++) {
                     if(cbs[i].checked){
                         //有一个条目选中了
@@ -201,7 +197,7 @@
         //1.获取第一个cb
         document.getElementById("firstCb").onclick = function(){
             //2.获取下边列表中所有的cb
-            var cbs = document.getElementsByName("uid");
+            var cbs = document.getElementsByName("dictId");
             //3.遍历
             for (var i = 0; i < cbs.length; i++) {
                 //4.设置这些cbs[i]的checked状态 = firstCb.checked

@@ -71,11 +71,20 @@ pageEncoding="UTF-8"%>
                                     <input type="text" class="form-control" id="roomType" name="roomType" placeholder="">
                                 </div>
                             </div>
-                            <div class="form-group">
+                           <%-- <div class="form-group">
                                 <label for="meetingSubdept" class="col-sm-2 control-label">所属分部:</label>
                                 <div class="col-sm-5">
                                     <input type="text" class="form-control" id="meetingSubdept" name="meetingSubdept" placeholder="">
                                 </div>
+                            </div>--%>
+                            <div class="form-group">
+                                <label for="meetingSubdept" class="col-sm-2 control-label">所属分公司:</label>
+                                <select  id="meetingSubdept" name="meetingSubdept" class="form-control"
+                                         style="width: 150px;height:35px"
+                                         onchange="okIS(this.options[selectedIndex].value)" >
+                                    <option value="武汉分部" >武汉分部</option>
+                                    <option value="上海分部" >上海分部</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="manager" class="col-sm-2 control-label">管理人:</label>
@@ -89,11 +98,20 @@ pageEncoding="UTF-8"%>
                                     <input type="text" class="form-control" id="callIp" name="callIp" placeholder="">
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <%--<div class="form-group">
                                 <label for="isStart" class="col-sm-2 control-label">是否启用:</label>
                                 <div class="col-sm-5">
                                     <input type="text" class="form-control" id="isStart" name="isStart" placeholder="">
                                 </div>
+                            </div>--%>
+                            <div class="form-group">
+                                <label for="isStart" class="col-sm-2 control-label">是否启用:</label>
+                                <select  id="isStart" name="isStart" class="form-control"
+                                         style="width: 150px;height:35px"
+                                         onchange="okIS(this.options[selectedIndex].value)" >
+                                    <option value="1" >启用</option>
+                                    <option value="0" >禁用</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">

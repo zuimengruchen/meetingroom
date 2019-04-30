@@ -81,8 +81,7 @@ pageEncoding="UTF-8"%>
                                     <td class="text-center">
                                         <form class="navbar-form">
                                             <a class="btn btn-danger"
-                                               href="${pageContext.request.contextPath}/user/findByid?id
-                                               =${list.id}">修改</a>
+                                               href="${pageContext.request.contextPath}/user/findByid?id=${list.id}">修改</a>
                                             <a href="#" class="btn btn-danger" onclick="return confirm('你确认要删除')">删除</a>
                                         </form>
                                     </td>
