@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -33,7 +35,6 @@ public class ReMeetRoomController {
     private HistoryMeetService historyMeetService;
     @Autowired
     private AddUserService addUserService;
-
     @Autowired
     private MeetUserService meetUserService;
 
@@ -116,6 +117,40 @@ public class ReMeetRoomController {
 
             return result;
     }
+
+    /*
+    * 初始状态进入
+    * */
+    @RequestMapping("getInto")
+    public ModelAndView getInto( HttpSession session) throws ParseException {
+        ModelAndView vm=new ModelAndView();
+        String areaid="c5539aa3-af34-463d-9415-1a7f8ae42727";
+        String roomfloor="5";
+        String roombuilding="YMTC-OS1";
+        String nowTime=new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date());
+        String time="01:00";
+        String endTime=DateChange.getTime(nowTime,time);
+        List<Appointment_Meeting> roomId=reMeetRoomService.findByDate(nowTime,endTime);
+        String roomid="(";
+        int i =1;
+        for (Appointment_Meeting id:roomId){
+            System.out.println(roomId.size());
+            if(i==roomId.size()) {
+                System.out.println(id.getMeetRoomId());
+                roomid = roomid + id.getMeetRoomId();
+            }else {
+                roomid = roomid + id.getMeetRoomId()+",";
+            }
+            i++;
+        }
+        roomid=roomid+")";
+      List<MeetRoom> meetRooms=  reMeetRoomService.findRoom(areaid,roombuilding,roomfloor.trim(),roomid);
+        
+        session.setAttribute("meetRoom",meetRooms);
+      vm.setViewName("index");
+      return vm;
+    }
+
 
 
     /**

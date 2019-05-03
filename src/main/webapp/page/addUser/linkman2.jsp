@@ -28,26 +28,12 @@
     <div class="container-fluid">
 
         <div class="card-header bg-light">
-            <a href="#">首页</a><span>&nbsp&nbsp >&nbsp&nbsp  </span><a href="#">我的预定</a>&nbsp&nbsp >&nbsp&nbsp<a href="#">参会人列表></a>
+            <a >首页</a><span>&nbsp&nbsp >&nbsp&nbsp  </span><a >我的预定</a>&nbsp&nbsp >&nbsp&nbsp<a >参会人列表</a>
         </div>
         <hr>
 
-        <div class="card-header bg-light">
-            <div class="row">
-                <div class="col-md-2">
-                    <div style="width: 120px">
-                        <ul class="nav nav-tabs" role="tablist">
 
-
-                           <%-- <li class="nav-item" style="width: 150px;margin-top: 10px">
-                                <a class="btn btn-primary" data-toggle="tab" href="#external" &lt;%&ndash;onclick="external()"&ndash;%&gt;  id="external" role="tab" aria-controls="external">外部联系人</a>
-                            </li>--%>
-                        </ul>
-                    </div>
-                </div>
-
-
-                <div class="tab-content col-md-10">
+         <div class="tab-content col-md-12" style="border: 0px  ">
                     <%--内部联系人--%>
                     <div class="tab-pane active" id="Internal" role="tabpanel">
                         <div class="col-md-12 mb-4">
@@ -55,16 +41,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" data-toggle="tab" href="#home1" role="tab" aria-controls="home1">参会人列表</a>
                                 </li>
-
-
                             </ul>
-
-
                             <div style="float: right;margin: 5px;">
-
-
-                                <a class="btn btn-primary" href="javascript:void(0);" id="addSelected">移除全部</a>
-
+                                <a class="btn btn-primary" href="javascript:void(0);" id="addSelected">移除</a>
+                                <a class="btn btn-primary" href="javascript:void(0);" id="addUser">添加</a>
                             </div>
                             <%--联系人列表--%>
                             <div class="tab-content">
@@ -100,9 +80,7 @@
                                        </table>
                                    </form>
                                 </div>
-
                             <%--添加联系人--%>
-
                             </div>
                             <div style="float: right">
                             <button type="button" class="btn btn-primary" onclick="history.back(-1);">返回</button>

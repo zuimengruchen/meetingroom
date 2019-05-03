@@ -57,6 +57,16 @@ public class AppointmentServiceimpl implements AppointmentMeetService {
         return null;
     }
 
+    @Override
+    public void removeMeet(Integer meetId) {
+        appointmentMeetDao.removeMeet(meetId);
+    }
+
+    @Override
+    public void endMeet(Integer meetId) {
+        appointmentMeetDao.endMeet(meetId);
+    }
+
     public List<Remeet> findAll() {
         return appointmentMeetDao.findAll();
 }

@@ -56,6 +56,7 @@ pageEncoding="UTF-8"%>
                             <th class="text-center">距离开会时间:</th>
                         </tr>
                         </thead>
+                        <div class="CollagePeople-bot">
                         <tbody>
                         <c:forEach items="${pageInfo.list}" var="list">
                             <c:if test="${list.state==1}">
@@ -70,12 +71,14 @@ pageEncoding="UTF-8"%>
                                     <td class="text-center">${list.meetType}</td>
                                     <td class="text-center">${list.meetDate}</td>
                                     <td class="text-center">${list.meetRoomName}</td>
-                                    <td class="text-center" style="color: red"><span></span></td>
+                                    <td class="text-center" style="color: red"> <span class="intDifftime" endTime="${list.meetDate}">会议正在进行</span></td>
                                 </tr>
                             </c:if>
                         </c:forEach>
                         </tbody>
+                        </div>
                     </table>
+
                     </form>
                     <%--分页查询--%>
                     <div class="form-group form-inline">
@@ -164,63 +167,27 @@ pageEncoding="UTF-8"%>
     }
 </script>
 <script type="text/javascript">
-    var time_now_server,time_now_client,time_end,time_server_client;
-
-    time_end=new Date("2019/04/21 12:11:55").getTime();//结束的时间
-
-    time_now_server=new Date().getTime();//开始的时间
-
-    setTimeout("show_time()",1000);
-    // setTimeout("show_time('timer1')",1000);
-    // setTimeout("show_time('timer2')",1000);
-
-    function show_time() {
-        var timer = document.getElementById("timer");
-        var hourid = document.getElementById("hour");
-        if(!timer){
-            return ;
-        }
-        timer.innerHTML =time_now_server;
-
-        var time_now,time_distance,str_time;
-        var int_day,int_hour,int_minute,int_second;
-        var time_now=new Date().getTime();
-        time_distance=time_end-time_now;
-        if(time_distance>0) {
-            int_day=Math.floor(time_distance/86400000);
-            time_distance-=int_day*86400000;
-            int_hour=Math.floor(time_distance/3600000);
-            time_distance-=int_hour*3600000;
-            int_minute=Math.floor(time_distance/60000);
-            time_distance-=int_minute*60000;
-            int_second=Math.floor(time_distance/1000);
-
-            if(int_hour < 10)
-            int_hour="0"+int_hour;
-            if(int_minute<10)
-                int_minute="0"+int_minute;
-            if(int_second<10)
-                int_second="0"+int_second;
-
-            var str_time="";
-            if (int_day>0)
-                str_time+=int_day+"天  ";
-            if (int_hour>=0)
-                str_time+=int_hour+":";
-            if (int_minute>=0)
-                str_time+=int_minute+":";
-            if (int_second>=0)
-                str_time+=int_second;
-            //str_time=int_day+"天  "+int_hour+":"+int_minute+":"+int_second;
-            timer.innerHTML=str_time;
-            setTimeout("show_time()",1000);
-        } else {
-            timer.innerHTML ="会议已开始";
-            var result = window.confirm('是否开始会议?');
-            if (result){
-                alert("会议开始!");
-            }
-        }
+    $(function(){
+        updateEndTime();
+    });
+    function updateEndTime(){
+        var NowTime = new Date();
+        var time = NowTime.getTime();
+        $(".intDifftime").each(function(I){
+            var endDate =this.getAttribute("endTime");
+            console.log("aa",endDate);
+            var endDate1 = eval('new Date(' + endDate.replace(/\d+(?=-[^-]+$)/, function (a) { return parseInt(a, 10) - 1; }).match(/\d+/g) + ')');
+            var endTime = endDate1.getTime();
+            var lag =Math.floor((endTime - time) / 1000);
+            console.log("秒数",endTime);
+            //			判断计时是否停止
+            if(lag > 0){
+                var day = Math.floor(lag / (60 * 60 * 24));var h = Math.floor(lag / 3600%24);var d = Math.floor(h/24);var m = Math.floor(lag/60%60);var s = lag%60;$(this).html(day+'天'+ h +"小时"+ m +"分钟"+ s +'秒');
+            }else{
+                console.log("倒计时结束");
+            }});
+        setTimeout("updateEndTime()",1000);
     }
+
 </script>
 </html>

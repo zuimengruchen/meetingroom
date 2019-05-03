@@ -27,22 +27,27 @@ pageEncoding="UTF-8"%>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12 text-center">
-                <button class="btn btn-primary btn-lg" onclick="window.location.href=''"><span class="fa fa-list"></span>日程</button>
-                <button class="btn btn-success btn-lg"><span class="fa fa-arrow-circle-down"></span>资源</button>
-                <button class="btn btn-primary btn-sm" style="background-color: darkblue">空闲</button>
-                <button class="btn btn-secondary btn-sm">占用</button>
-                <br/><br/><br/>
+            <div  class="col-md-12 row">
+                <div class=" col-md-4">
+                    <h1 style="color: #1e94f3">会议室预定</h1>
+                </div>
+                <div class="col-md-8">
+                <button style="float: right" class="btn btn-primary btn-lg" onclick="window.location.href=''"><span class="fa fa-list"></span>日程</button>
+                </div>
+
             </div>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12 bg-light">
+
+                        <div class="col-md-12 bg-light">
                         <div class="row">
+
                             <div class="col-md-2">
                                 <div class="form-group" >
                                     <select class="form-control" style="height: 35px ">
                                             <span class="fa fa-home">
-                                                <c:forEach items="${meetRoomArea}" var="area">
+                                          <option selected="selected" id="c5539aa3-af34-463d-9415-1a7f8ae42727" value="c5539aa3-af34-463d-9415-1a7f8ae42727"> </span>WH</option>
+                                        <c:forEach items="${meetRoomArea}" var="area">
                                                     <option id="${area.areaId}" value="${area.areaId}"> </span>${area.roomAreaName}</option>
                                         </c:forEach>
                                     </select>
@@ -51,26 +56,19 @@ pageEncoding="UTF-8"%>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <select id="meetBuilding" class="form-control" style="height: 35px ">
+                                        <option selected value="YMTC-OS1">YMTC-OS1</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group" >
-                                    <input id="date" type="date" class="form-control">
+                                    <input id="date" type="date" class="form-control" value="2019-04-16">
                                 </div>
-                                <%--</div>--%>
-                                <%--会议类型--%>
-                                <%--<div class="col-md-2">--%>
-                                <%--<select class="form-control">--%>
-                                <%--<option>本地会议</option>--%>
-                                <%--<option value="1" selected="selected">视屏会议</option>--%>
-                                <%--<option>音频会议</option>--%>
-                                <%--</select>--%>
-                                <%--</div>--%>
+
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group" >
-                                    <input id="time" type="time" class="form-control">
+                                    <input id="time" type="time" class="form-control" value="11:30">
                                 </div>
                             </div>
                             <div class="col-md-1" style="padding: 10px">
@@ -78,32 +76,31 @@ pageEncoding="UTF-8"%>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group" >
-                                    <input id="duration" type="time" class="form-control">
+                                    <input id="duration" type="time" class="form-control" value="01:00">
                                 </div>
                             </div>
                         </div>
+                        </div>
+
                         <div class="col-md-12 mb-2">
                             <ul class="nav nav-tabs" role="tablist" id="floor">
                                 <li class="nav-item">
                                     <a class="nav-link active text-primary" data-toggle="tab" href="#home" role="tab"
-                                       aria-controls="home">floor5</a>
+                                       aria-controls="home">5</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-primary" data-toggle="tab" href="#profile" role="tab"
-                                       aria-controls="profile">floor6</a>
-                                </li>
+
                             </ul>
 
                             <div class="tab-content" >
                                 <div class="tab-pane active" id="home" role="tabpanel">
 
                                     <div class="row" id="meetroom">
-
+                                     <c:forEach items="${meetRoom}"  var="list">
                                         <div class="col-md-2">
-                                            <div class="card ">
+
                                                 <div>
                                                     <img src="${pageContext.request.contextPath}/image/biaoqian.png" width="50px">
-                                                    <div style="position: absolute;left: 15px;top: 0px;color: whitesmoke"><span class="h5">12</span></div>
+                                                    <div style="position: absolute;left: 15px;top: 0px;color: whitesmoke"><span class="h5">${list.personCount}</span></div>
 
                                                     <div style="float: right;" >
                                                         <button  style="background-color: #ffffff; width:25px;height:25px;border: none;">
@@ -119,16 +116,22 @@ pageEncoding="UTF-8"%>
 
 
                                                     <div class="card-footer bg-light text-center">
-                                                        <a href="${pageContext.request.contextPath }/meetroom/remmet" class="h6 text-warning">B栋05014</a>
+                                                        <a href="${pageContext.request.contextPath }/meetroom/remmet?id=${list.roomId}&date=2019-04-16&time=11:30&duration=01:00" class="h6 text-warning">${list.roomName}</a>
                                                     </div>
                                                 </div>
-                                            </div>
+
+
+
+
                                         </div>
+
+    </c:forEach>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -169,7 +172,7 @@ pageEncoding="UTF-8"%>
             $.post(url, data, function (result) {
                 $(result).each(function () {
                     $("#floor").append("<li class=\"nav-item\">\n" +
-                        "                        <a class=\"nav-link   text-primary\" data-toggle=\"tab\" href=\"#"+this.roomFloor+"\" role=\"tab\"\n" +
+                        "                       <a class=\"nav-link   text-primary\" data-toggle=\"tab\" href=\"#"+this.roomFloor+"\" role=\"tab\"\n" +
                         "                    aria-controls=\""+this.roomFloor+"\">"+this.roomFloor+"</a>\n" +
                         "                        </li>")
                 })
