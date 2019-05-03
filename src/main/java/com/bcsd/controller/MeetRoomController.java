@@ -35,7 +35,7 @@ public class MeetRoomController {
      * @return
      */
     @RequestMapping("/findAll")
-    public ModelAndView findAll(Integer page,Integer size){
+    public ModelAndView findAll(Integer page,Integer size,String roomName){
         if(page==null||page==0){
             page=1;
         }
@@ -44,7 +44,7 @@ public class MeetRoomController {
         }
         System.out.println("查询所有会议室");
         ModelAndView vm=new ModelAndView();
-        List<MeetRoom> meetRoomList = meetRoomService.findAll(page,size);
+        List<MeetRoom> meetRoomList = meetRoomService.findAll(page,size,roomName);
         PageInfo pageInfo=new PageInfo<MeetRoom>(meetRoomList);
         vm.addObject("pageInfo",pageInfo);
         vm.setViewName(PREFIX);
@@ -120,10 +120,6 @@ public class MeetRoomController {
         for (String roomId : ids) {
             meetRoomService.delete(roomId);
         }
-        ModelAndView vm=new ModelAndView();
-      /*  vm.addObject("deleteInfo","success");
-        System.out.println("删除成功!");
-        vm.setViewName("page/meet_management");*/
         return "redirect:findAll";
     }
 }

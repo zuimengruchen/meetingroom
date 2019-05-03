@@ -9,8 +9,8 @@ import java.util.Map;
 
 public interface DictDao {
 
-
     List<Dict> findAll();
+    List<Dict> findAll(@Param("name") String name);
 
     void add(Dict dict);
 

@@ -18,9 +18,9 @@ public class MeetRoomServiceImpl implements MeetRoomService {
     @Autowired
     private MeetRoomDao meetRoomDao;
 
-    public List<MeetRoom> findAll(Integer page,Integer size) {
+    public List<MeetRoom> findAll(Integer page,Integer size,String roomName) {
         PageHelper.startPage(page,size);
-        return meetRoomDao.findAll();
+        return meetRoomDao.findAll(roomName);
     }
 
     public void add(MeetRoom meetRoom) throws ParseException {

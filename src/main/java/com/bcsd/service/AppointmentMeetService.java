@@ -27,10 +27,11 @@ public interface AppointmentMeetService {
     //根据用户Id查询所有预约的会议
     List<Remeet>  findAll();
 
+    List<Remeet> findPage(int index,int size,String meetName);
     List<Remeet> findPage(int index,int size);
 
 
-    List<HistoryMeet> findPageHistory(Integer page, Integer size, Integer id);
+    List<HistoryMeet> findPageHistory(Integer page, Integer size, Integer id,String meetName);
 
     List<User> findHistoryUser(Integer page, Integer size, Integer id);
 }

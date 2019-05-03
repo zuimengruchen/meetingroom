@@ -1,7 +1,6 @@
 package com.bcsd.service;
 
 import com.bcsd.entity.Dict;
-import com.bcsd.entity.PageResult;
 import com.github.pagehelper.Page;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public interface DictService {
     Page<Map<String, Object>> list(Page page, String condition);
 
 
-    List<Dict> findPage(int pageNum, int pageSize);
+    List<Dict> findPage(int pageNum, int pageSize,String name);
 
     List<Dict> findByPid(Integer page, Integer size, Integer pid);
 }

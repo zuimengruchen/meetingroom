@@ -13,6 +13,10 @@
         SELECT
         <include refid="Base_Column_List"/>
         from cj_dict d
+        where 1=1
+        <if test="name !=null and name !=''">
+            AND name like '%${name}%'
+        </if>
     </select>
     <!--查找一个-->
     <select id="findOne" parameterType="java.lang.Integer" resultType="com.bcsd.entity.Dict">

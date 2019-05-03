@@ -2,14 +2,11 @@ package com.bcsd.service.Impl;
 
 import com.bcsd.dao.DictDao;
 import com.bcsd.entity.Dict;
-import com.bcsd.entity.PageResult;
 import com.bcsd.service.DictService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -63,9 +60,9 @@ public class DictServiceImpl implements DictService {
      * @return
      */
     @Override
-    public List<Dict> findPage(int pageNum, int pageSize) {
+    public List<Dict> findPage(int pageNum, int pageSize,String name) {
         PageHelper.startPage(pageNum,pageSize);//分页
-        return dictDao.findAll();
+        return dictDao.findAll(name);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.bcsd.dao;
 
 import com.bcsd.entity.MeetRoom;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public interface MeetRoomDao {
 
-    List<MeetRoom> findAll();
+    List<MeetRoom> findAll(@Param("roomName") String roomName);
 
     void add(MeetRoom meetRoom);
 

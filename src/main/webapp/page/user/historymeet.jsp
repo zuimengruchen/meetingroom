@@ -36,7 +36,6 @@
         <div class="card-header bg-light">
             <div class="row">
                 <div class="tab-content col-md-12">
-
                     <form id="form" action="#" method="post">
                         <table class="table table-bordered">
                             <tr>
@@ -59,11 +58,12 @@
                             </c:forEach>
                         </table>
                     </form>
+                    <div style="float: right">
+                        <button type="button" class="btn btn-primary" onclick="history.back(-1);">返回</button>
+                    </div>
                 </div>
             </div>
-            <div style="float: right">
-                <button type="button" class="btn btn-primary" onclick="history.back(-1);">返回</button>
-            </div>
+
         </div>
     </div>
 </div>

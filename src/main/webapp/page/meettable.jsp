@@ -24,164 +24,145 @@ pageEncoding="UTF-8"%>
 </head>
 <body class="sidebar-fixed header-fixed">
 <div class="content">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header bg-light">
-                    <span class="fa fa-home">>我的预定会议 </span>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive ">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th class="active">
+    <div class="container-fluid">
+        <div class="card-header bg-light">
+            <div class="text-left">
+                <a href="#">首页</a><span>&nbsp&nbsp >&nbsp&nbsp  </span><a
+                    href="#">我的会议</a><span>&nbsp&nbsp >&nbsp&nbsp  </span><a href="#">我的预定会议</a>
+                <button class="btn btn-primary" style="float: right;margin-right: 10px" id="delSelected">取消选中</button>
+            </div>
+        </div>
+        <hr>
 
-                                </th>
-                                <th>会议名称 </th>
-                                <th>会议类型</th>
-                                <th>开始时间</th>
-                                <th>会议室</th>
-                                <th>距离开会时间:</th>
-                                <!-- <th>操作</th>-->
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${pageInfo.list}" var="list">
-                               <c:if test="${list.state==1}">
+        <div class="card-header bg-light">
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="${pageContext.request.contextPath }/meetroom/myappointmeet" method="post">
+                        <input type="text" class="form-control" style="width: 200px;float: left;margin: 5px" placeholder="搜索" name="meetName">
+                        <button type="submit" class="btn btn-default" style="width: 60px;float: left;margin: 5px">搜索</button>
+                    </form>
+                    <form method="post" action="${pageContext.request.contextPath}/"><%--批量取消会议--%>
+                       <%-- <input type="text" class="form-control" style="width: 200px;float: left;margin: 5px" placeholder="搜索">
+                        <button type="submit" class="btn btn-default" style="width: 60px;float: left;margin: 5px">搜索</button>--%>
+
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th class="active text-center"> <input type="checkbox" id="firstCb"/></th>
+                            <th class="text-center">会议名称</th>
+                            <th class="text-center">会议类型</th>
+                            <th class="text-center">开始时间</th>
+                            <th class="text-center">会议室</th>
+                            <th class="text-center">距离开会时间:</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${pageInfo.list}" var="list">
+                            <c:if test="${list.state==1}">
                                 <tr>
                                     <td class="active">
-                                      <center><input type="checkbox" name="" value=""/></center>
+                                        <center><input type="checkbox" name="id" value="${list.id}"/></center>
                                     </td>
                                     <td>
                                         <a href="${pageContext.request.contextPath }/addUser/finduser?meetid=${list.id}"  style="color: #0c87eb">${list.meetName}</a>
 
                                     </td>
-                                    <td>${list.meetType}</td>
-                                    <td>${list.meetDate}</td>
-                                    <td>${list.meetRoomName}</td>
-                                    <td style="color: red" ><span ></span></td>
+                                    <td class="text-center">${list.meetType}</td>
+                                    <td class="text-center">${list.meetDate}</td>
+                                    <td class="text-center">${list.meetRoomName}</td>
+                                    <td class="text-center" style="color: red"><span></span></td>
                                 </tr>
-                               </c:if>
+                            </c:if>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                    </form>
+                    <%--分页查询--%>
+                    <div class="form-group form-inline">
+                        <div class="form-group form-inline">
+                            总共${pageInfo.pages}页，共${pageInfo.total} 条数据。 每页 10 条
+                        </div>&nbsp;&nbsp;
+                        <ul class="pagination">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/meetroom/myappointmeet?page=1&size=${pageInfo.pageSize}"
+                                   aria-label="Previous">首页</a>
+                                <%-- <a href="${pageContext.request.contextPath}/mail/findPage?page=1&size=${pageInfo.pageSize}" aria-label="Previous">首页</a> --%>
+                            </li>
+                            <c:if test="${pageInfo.pageNum!=1}">
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/meetroom/myappointmeet?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}">&laquo;</a>
+                                </li>
+                            </c:if>
+                            <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/meetroom/myappointmeet?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a>
+                                </li>
                             </c:forEach>
-                            </tbody>
-                        </table>
-                        <div>
-                            <div class="pull-left">
-                                <div class="form-group form-inline">
-                                    总共${pageInfo.pages}页，共${pageInfo.total} 条数据。 每页
-                                    10条
-                                </div>
-                            </div>
-                            <div>
-                                <ul class="pagination">
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/meetroom/myappointmeet?page=1&size=${pageInfo.pageSize}"
-                                           aria-label="Previous">首页</a>
-                                        <%-- <a href="${pageContext.request.contextPath}/mail/findPage?page=1&size=${pageInfo.pageSize}" aria-label="Previous">首页</a> --%>
-                                    </li>
-                                <c:if test="${pageInfo.pageNum!=1}">
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/meetroom/myappointmeet?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}">&laquo;</a>
-                                    </li>
-                                </c:if>
-                                    <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
-                                        <li>
-                                            <a href="${pageContext.request.contextPath}/meetroom/myappointmeet?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a>
-                                        </li>
-                                    </c:forEach>
-                                    <c:if test="${pageInfo.pages!=pageInfo.pageNum}">
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/meetroom/myappointmeet?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}">&raquo;</a>
-                                    </li>
-                                    </c:if>
-                                    <li>
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/meetroom/myappointmeet?page=${pageInfo.pages}&size=${pageInfo.pageSize}"
-                                           aria-label="Next">尾页</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                            <c:if test="${pageInfo.pages!=pageInfo.pageNum}">
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/meetroom/myappointmeet?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}">&raquo;</a>
+                                </li>
+                            </c:if>
+                            <li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/meetroom/myappointmeet?page=${pageInfo.pages}&size=${pageInfo.pageSize}"
+                                   aria-label="Next">尾页</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- 添加修改对话框开始 -->
-<div id="login" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header bg-light">
-                            <span class="fa fa-home">>参会人员信息 </span>
-                        </div>
-
-                        <div class="card-body">
-                            <div class="table-responsive ">
-
-                                <table class="table ">
-                                    <thead>
-                                    <tr>
-                                        <th class="active">
-                                            <input type="checkbox" name="" id="check1" value=""/>
-                                        </th>
-                                        <th>姓名</th>
-                                        <th>部门</th>
-                                        <th>性别</th>
-
-                                        <th>联系方式</th>
-                                        <th>邮箱</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach items="${user}" var="list">
-                                    <tr>
-                                        <td class="active">
-                                            <input type="checkbox" name="" value=""/>
-                                        </td>
-                                        <td class="text-nowrap">${list.name}</td>
-                                        <td>${list.dept}</td>
-                                        <td>${list.sex}</td>
-
-                                        <td>${list.tel}</td>
-                                        <td>${lsit.email}</td>
-                                    </tr>
-                                    </c:forEach>
-                                    <tr>
-                                        <td class="active">
-                                            <input type="checkbox" name="" value=""/>
-                                        </td>
-                                        <td class="text-nowrap">离司</td>
-                                        <td>人事部</td>
-                                        <td>男</td>
-
-                                        <td>13456789087</td>
-                                        <td>samsung@xx.com</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-    </div>
-</div>
-<!-- 添加修改对话框结束 -->
-
-
 
 </body>
+<script>
+    function deleteRoom(id) {
+        //alert(1);
+        //用户安全提示
+        if (confirm("您确定要取消吗？")) {
+            alert("取消成功!");
+            //访问路径
+           // location.href = "${pageContext.request.contextPath}/meet/delete?roomId=" + id;
+        }
+    }
 
+    window.onload = function () {
+        //给删除选中按钮添加单击事件
+        document.getElementById("delSelected").onclick = function () {
+            if (confirm("您确定要删除选中条目吗？")) {
+
+                var flag = false;
+                //判断是否有选中条目
+                var cbs = document.getElementsByName("id");
+                for (var i = 0; i < cbs.length; i++) {
+                    if (cbs[i].checked) {
+                        //alert(cbs[i]);
+                        //有一个条目选中了
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag) {//有条目被选中
+                    //表单提交
+                    document.getElementById("form").submit();
+                }
+            }
+        };
+        //1.获取第一个cb
+        document.getElementById("firstCb").onclick = function () {
+            //2.获取下边列表中所有的cb
+            var cbs = document.getElementsByName("id");
+            //3.遍历
+            for (var i = 0; i < cbs.length; i++) {
+                //4.设置这些cbs[i]的checked状态 = firstCb.checked
+                cbs[i].checked = this.checked;
+            }
+        };
+
+    }
+</script>
 <script type="text/javascript">
     var time_now_server,time_now_client,time_end,time_server_client;
 

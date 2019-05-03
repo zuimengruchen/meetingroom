@@ -53,7 +53,7 @@ public class AppointmrntController {
     }
 
     @RequestMapping("findInternal")
-    public ModelAndView findInternal(Integer page, Integer size, Integer internal){
+    public ModelAndView findInternal(Integer page, Integer size, Integer internal,String name){
         if (page == null || page == 0) {
             page = 1;
         }
@@ -65,7 +65,7 @@ public class AppointmrntController {
         }
 
         ModelAndView vm = new ModelAndView();
-        List<UserInternal> list = meetUserService.findInternal(page, size, 0);
+        List<UserInternal> list = meetUserService.findInternal(page, size, internal,name);
         //PageInfo pageInfo = new PageInfo<>(list);
         vm.addObject("Internal", list);
         vm.setViewName("page/addUser/linkman1");
@@ -103,7 +103,7 @@ public class AppointmrntController {
      * @return
      */
     @RequestMapping("/history")
-    public ModelAndView findHistory(Integer page,Integer size,Integer id){
+    public ModelAndView findHistory(Integer page,Integer size,Integer id,String meetName){
         if(page==null||page==0){
             page=1;
         }
@@ -111,7 +111,7 @@ public class AppointmrntController {
             size=10;
         }
         id=1;
-        List<HistoryMeet> list = appointmentMeetService.findPageHistory(page, size, id);
+        List<HistoryMeet> list = appointmentMeetService.findPageHistory(page, size, id,meetName);
         ModelAndView vm=new ModelAndView();
         PageInfo pageInfo = new PageInfo<HistoryMeet>(list);
         vm.addObject("pageInfo",pageInfo);

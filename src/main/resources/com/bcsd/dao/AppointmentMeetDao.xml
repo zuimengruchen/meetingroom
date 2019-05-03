@@ -4,6 +4,10 @@
 
     <select id="findAll" resultType="com.bcsd.entity.Remeet">
           select * from cj_appointment_meeting
+        where 1 = 1
+        <if test="meetName !=null and meetName !=''">
+            AND meetName like '%${meetName}%'
+        </if>
     </select>
 
 
@@ -34,10 +38,13 @@
 
 
     <!--根据用户id查询参与的历史会议-->
-    <select id="findPageHistory" parameterType="java.lang.Integer" resultType="com.bcsd.entity.HistoryMeet">
+    <select id="findPageHistory"  resultType="com.bcsd.entity.HistoryMeet">
       select m.*
       from `cj_history_user` h,cj_historyroom m,cj_user u
       where h.mid=m.id and h.uid=u.id and h.uid = #{id}
+        <if test="meetName !=null and meetName !=''">
+            AND meetName like '%${meetName}%'
+        </if>
     </select>
 
     <!--根据历史会议id查询参会人员-->

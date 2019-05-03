@@ -59,17 +59,13 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right">
-                    <div class="dropdown-header">用户</div>
 
                     <a href="#" class="dropdown-item">
                         <i class="fa fa-user"></i> 个人信息
                     </a>
 
-                    <a href="${pageContext.request.contextPath }/user/findInternal?page=1&size=10&internal=0" class="dropdown-item" target="iframe">
-                        <i class="fa fa-wrench"></i> 内部联系人
-                    </a>
-                    <a href="${pageContext.request.contextPath }/user/findInternal?page=1&size=10&internal=1" class="dropdown-item" target="iframe">
-                        <i class="fa fa-wrench"></i> 外部联系人
+                    <a href="${pageContext.request.contextPath }/user/findInternal" class="dropdown-item" target="iframe">
+                        <i class="fa fa-wrench"></i> 联系人
                     </a>
 
                     <a href="#" class="dropdown-item">
@@ -123,7 +119,6 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-
                                 <a href="${pageContext.request.contextPath }/page/comment_room.jsp" class="nav-link" target="iframe">
                                     <i class=""></i> 常用会议室
                                 </a>
@@ -150,7 +145,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item nav-dropdown">
+                   <%-- <li class="nav-item nav-dropdown">
                         <a href="#" class="nav-link nav-dropdown-toggle" target="iframe">
                             <i class="icon icon-graph"></i> 会议审批 <i class="fa fa-caret-left"></i>
                         </a>
@@ -168,7 +163,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li>--%>
 
                     <li class="nav-item nav-dropdown">
                         <a href="#" class="nav-link nav-dropdown-toggle" target="iframe">
@@ -184,13 +179,13 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="${pageContext.request.contextPath }/page/resources_management.jsp" class="nav-link" target="iframe">
-                                    <i class=""></i> 资源管理
+                                <a href="${pageContext.request.contextPath }/mail/findPage" class="nav-link" target="iframe">
+                                    <i class=""></i> 邮件管理
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="${pageContext.request.contextPath }/mail/findPage" class="nav-link" target="iframe">
-                                    <i class=""></i> 邮件管理
+                                <a href="${pageContext.request.contextPath }/user/findInternal" class="nav-link" target="iframe">
+                                    <i class=""></i> 联系人
                                 </a>
                             </li>
                         </ul>
@@ -228,15 +223,15 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="#" class="nav-link" target="iframe">
+                                <a href="${pageContext.request.contextPath }/page/log/log.jsp" class="nav-link" target="iframe">
                                     <i class=""></i> 日志管理
                                 </a>
                             </li>
-                            <li class="nav-item">
+                           <%-- <li class="nav-item">
                                 <a href="#" class="nav-link" target="iframe">
                                     <i class=""></i> 配置管理
                                 </a>
-                            </li>
+                            </li>--%>
                         </ul>
                     </li>
                 </ul>

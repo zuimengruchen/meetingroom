@@ -169,8 +169,18 @@
                                </div>
                                <div class="form-group">
                                    <label for="isStart" class="col-sm-2 control-label">是否启用:</label>
-                                   <div class="col-sm-5">
+                                  <%-- <div class="col-sm-5">
                                        <input type="text" class="form-control" id="isStart" name="isStart" value="${meetRoom.isStart}" placeholder="启用1/禁用0">
+                                   </div>--%>
+                                   <div class="col-sm-5">
+                                       <select  id="isStart" name="isStart" class="form-control"
+                                                style="width: 150px;height:35px"
+                                                onchange="VV(this.options[selectedIndex].value)" >
+                                           <option value="1" <c:if test="${meetRoom.isStart=='1'}">selected='selected
+                                        '</c:if>>启用</option>
+                                           <option value="0" <c:if test="${meetRoom.isStart=='0'}">selected='selected
+                                        '</c:if> >禁用</option>
+                                       </select>
                                    </div>
                                </div>
                                <div class="form-group">
@@ -187,32 +197,7 @@
 
     </div>
 </div>
-<!-- 添加修改对话框开始 -->
-
-
-<!-- 添加修改对话框结束 -->
-
 </body>
-<script>
-    $(document).ready(function(){
-        //alert("第一种方法。");
-    });
-
-</script>
-<%
-    if ((String)request.getAttribute("addInfo") == "success") { %>
-<script>
-    alert("添加成功！");
-    window.location.reload();
-</script>
-<%}%><%
-    if ((String)request.getAttribute("deleteInfo") == "success") { %>
-<script>
-    alert("删除成功！");
-    window.location.reload();
-</script>
-<%}%>
-
 <script>
     document.getElementById("room").style.display="none";
 </script>

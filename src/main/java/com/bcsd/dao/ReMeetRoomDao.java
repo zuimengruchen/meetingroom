@@ -15,7 +15,7 @@ public interface ReMeetRoomDao {
     List<MeetRoom> findFloor(@Param("areaid") String areaid, @Param("roombuilding")String roombuilding);
 
     //查询建筑
-    List<MeetRoom> findBuilding(String area);
+    List<MeetRoom> findBuilding( String area);
 
     //查询地区
     List<MeetRoom> findArea();

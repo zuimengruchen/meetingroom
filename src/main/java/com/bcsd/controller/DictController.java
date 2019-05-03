@@ -35,14 +35,14 @@ public class DictController  {
      * @return
      */
     @RequestMapping("/findPage")
-    public ModelAndView findPage(Integer page,Integer size){
+    public ModelAndView findPage(Integer page,Integer size,String name){
         if (page==null||page==0){
             page=1;
         }
         if (size==null||size==0){
-            size=5;
+            size=10;
         }
-        List<Dict> list = dictService.findPage(page, size);
+        List<Dict> list = dictService.findPage(page, size,name);
         PageInfo pageInfo = new PageInfo<Dict>(list);
         ModelAndView vm=new ModelAndView();
         vm.addObject("pageInfo",pageInfo);
@@ -119,7 +119,7 @@ public class DictController  {
     }
 
     /**
-     * 删除字典
+     * 批量删除字典
      * @param
      * @return
      */

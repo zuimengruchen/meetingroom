@@ -198,7 +198,7 @@ public class ReMeetRoomController {
 
 
     @RequestMapping("myappointmeet")
-    public ModelAndView myappointmeet(Integer page,Integer size,HttpSession session){
+    public ModelAndView myappointmeet(Integer page,Integer size,String meetName,HttpSession session){
         if(page==null||page==0){
             page=1;
         }
@@ -206,13 +206,12 @@ public class ReMeetRoomController {
             size=10;
         }
         ModelAndView vm=new ModelAndView();
-        List<Remeet> meets=appointmentMeetService.findPage(page,size);
+        List<Remeet> meets=appointmentMeetService.findPage(page,size,meetName);
         String meetid=String.valueOf(session.getAttribute("meetid"));
 
         PageInfo pageInfo = new PageInfo<Remeet>(meets);
         session.setAttribute("pageInfo",pageInfo);
         vm.addObject("pageInfo",pageInfo);
-
         vm.setViewName("page/meettable");
         return vm;
     }

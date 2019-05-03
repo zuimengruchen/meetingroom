@@ -79,6 +79,7 @@ pageEncoding="UTF-8"%>
                             </div>
                             <div class="form-group">
                                 <label for="roomType1" class="col-sm-2 control-label">用户所属分公司:</label>
+                                <div class="col-sm-5">
                                 <select  id="roomType1" name="deptid" class="form-control"
                                          style="width: 150px;height:35px"
                                          onchange="okIS(this.options[selectedIndex].value)" >
@@ -88,7 +89,7 @@ pageEncoding="UTF-8"%>
                                     <option value="4" >市场部</option>
                                     <option value="5" >人事部</option>
                                 </select>
-
+                                </div>
                             </div>
 
                             <div class="col-sm-5 control-label">

@@ -74,6 +74,7 @@ pageEncoding="UTF-8"%>
                             </div>
                             <div class="form-group">
                                 <label for="subofficeid" class="col-sm-2 control-label">用户所属分公司:</label>
+                                <div class="col-sm-5">
                                 <select  id="subofficeid" name="subofficeid" class="form-control"
                                          style="width: 150px;height:35px" onchange="okIS(this.options[selectedIndex].value)" >
                                     <option
@@ -82,9 +83,11 @@ pageEncoding="UTF-8"%>
                                     <option value="1" <c:if test="${meetuser.subofficeid=='1'}">selected='selected'</c:if>>武汉分部</option>
                                     <option value="2" <c:if test="${meetuser.subofficeid=='2'}">selected='selected'</c:if>>上海分部</option>
                                 </select>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="deptid" class="col-sm-2 control-label">用户所属分公部:</label>
+                                <div class="col-sm-5">
                                 <select  id="deptid" name="deptid" class="form-control"
                                          style="width: 150px;height:35px" onchange="VV(this.options[selectedIndex].value)" >
                                     <option value="1" <c:if test="${meetuser.deptid=='1'}">selected='selected
@@ -98,6 +101,7 @@ pageEncoding="UTF-8"%>
                                     <option value="5" <c:if test="${meetuser.deptid=='5'}">selected='selected
 '</c:if> >人事部</option>
                                 </select>
+                                </div>
                             </div>
 
                             <%--<div class="form-group">--%>

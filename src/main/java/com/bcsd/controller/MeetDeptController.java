@@ -2,6 +2,7 @@ package com.bcsd.controller;
 
 import com.bcsd.entity.MeetDept;
 import com.bcsd.service.MeetDeptService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -25,10 +26,17 @@ public class MeetDeptController {
     private MeetDeptService meetDeptService;
 
     @RequestMapping("/findAll")
-    public ModelAndView findAll(){
+    public ModelAndView findAll(Integer page,Integer size,String deptName){
+        if (page==null||page==0){
+            page=1;
+        }
+        if (size==null||size==0){
+            size=10;
+        }
         ModelAndView vm=new ModelAndView();
-        List<MeetDept> meetDeptList = meetDeptService.fidnAll();
-        vm.addObject("meetDeptList",meetDeptList);
+        List<MeetDept> meetDeptList = meetDeptService.fidnAll(page,size,deptName);
+        PageInfo<MeetDept> pageInfo = new PageInfo<MeetDept>(meetDeptList);
+        vm.addObject("pageInfo",pageInfo);
         vm.setViewName("page/meet_dept");
         return vm;
 

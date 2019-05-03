@@ -14,6 +14,8 @@ public interface AppointmentMeetDao {
 
     //根据用户Id查询所有预约的会议
     List<Remeet>  findAll();
+    //条件查询
+    List<Remeet>  findAll(@Param("meetName")String meetName);
 
 
     //增加预约本地会议
@@ -26,7 +28,7 @@ public interface AppointmentMeetDao {
     void addUser(@Param("user") List<MeetUser> user);
 
 
-    List<HistoryMeet> findPageHistory(Integer id);
+    List<HistoryMeet> findPageHistory(@Param("id") Integer id,@Param("meetName") String meetName);
 
     List<User> findHistoryUser(Integer id);
 }

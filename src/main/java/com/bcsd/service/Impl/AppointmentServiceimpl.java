@@ -61,6 +61,11 @@ public class AppointmentServiceimpl implements AppointmentMeetService {
         return appointmentMeetDao.findAll();
 }
 
+    public List<Remeet> findPage(int page, int size, String meetName) {
+        PageHelper.startPage(page,size);
+        return appointmentMeetDao.findAll(meetName);
+    }
+
     //查询所有会议
     public List<Remeet> findPage(int page,int size) {
         PageHelper.startPage(page,size);
@@ -69,9 +74,9 @@ public class AppointmentServiceimpl implements AppointmentMeetService {
 
 
 
-    public List<HistoryMeet> findPageHistory(Integer page, Integer size, Integer id) {
+    public List<HistoryMeet> findPageHistory(Integer page, Integer size, Integer id,String meetName) {
         PageHelper.startPage(page,size);
-        return appointmentMeetDao.findPageHistory(id);
+        return appointmentMeetDao.findPageHistory(id,meetName);
     }
 
     public List<User> findHistoryUser(Integer page, Integer size,Integer id) {
