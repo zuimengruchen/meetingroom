@@ -84,6 +84,13 @@ public class AddUserController {
 
     }
 
+
+    /**
+     * 添加联系人
+     * @param meetid
+     * @param session
+     * @return
+     */
     @RequestMapping("finduser")
     public ModelAndView addUser(@Param("meetid")String meetid,HttpSession session){
 
@@ -99,6 +106,14 @@ public class AddUserController {
         vm.setViewName("page/addUser/linkman2");
         return vm;
     }
+
+
+    /**
+     * 取消会议
+     * @param userId
+     * @param session
+     * @return
+     */
     @RequestMapping("deleteUser")
     public ModelAndView deleteUser( @Param("userId")String userId, HttpSession session){
 

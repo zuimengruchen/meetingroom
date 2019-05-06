@@ -34,6 +34,9 @@ public class MeetDeptController {
             size=10;
         }
         ModelAndView vm=new ModelAndView();
+        if (deptName!=null||deptName!=""){
+            vm.addObject("deptName",deptName);
+        }
         List<MeetDept> meetDeptList = meetDeptService.fidnAll(page,size,deptName);
         PageInfo<MeetDept> pageInfo = new PageInfo<MeetDept>(meetDeptList);
         vm.addObject("pageInfo",pageInfo);

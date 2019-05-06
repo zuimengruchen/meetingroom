@@ -45,17 +45,17 @@
 
         <ul class="navbar-nav ml-auto">
 
-            <li class="nav-item d-md-down-none">
+            <%--<li class="nav-item d-md-down-none">
                 <a href="${pageContext.request.contextPath }/page/email_management.jsp" target="iframe">
                     <i class="fa fa-envelope-open"></i>
                     <span class="badge badge-pill badge-danger">5</span>
                 </a>
-            </li>
+            </li>--%>
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="./image/avatar-1.png" class="avatar avatar-sm" alt="logo">
-                    <span class="small ml-1 d-md-down-none">张主任</span>
+                    <span class="small ml-1 d-md-down-none">张任</span>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right">
@@ -172,11 +172,11 @@
 
                         <ul class="nav-dropdown-items">
 
-                            <li class="nav-item">
+                           <%-- <li class="nav-item">
                                 <a href="${pageContext.request.contextPath }/page/mcu_management.jsp" class="nav-link" target="iframe">
                                     <i class=""></i> MCU管理
                                 </a>
-                            </li>
+                            </li>--%>
 
                             <li class="nav-item">
                                 <a href="${pageContext.request.contextPath }/mail/findPage" class="nav-link" target="iframe">
@@ -222,11 +222,11 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item">
+                           <%-- <li class="nav-item">
                                 <a href="${pageContext.request.contextPath }/page/log/log.jsp" class="nav-link" target="iframe">
                                     <i class=""></i> 日志管理
                                 </a>
-                            </li>
+                            </li>--%>
                            <%-- <li class="nav-item">
                                 <a href="#" class="nav-link" target="iframe">
                                     <i class=""></i> 配置管理

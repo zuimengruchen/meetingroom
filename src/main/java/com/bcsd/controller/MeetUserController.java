@@ -49,6 +49,9 @@ public class MeetUserController {
             size=10;
         }
         ModelAndView mv = new ModelAndView();
+        if (username!=null||username!=""){
+            mv.addObject("username",username);
+        }
         List<MeetUser> all = meetUserService.findAll(page,size,username);
         PageInfo<MeetUser> pageInfo = new PageInfo<MeetUser>(all);
         mv.addObject("pageInfo", pageInfo);
@@ -127,10 +130,16 @@ public class MeetUserController {
         if (size == null || size == 0) {
             size = 10;
         }
-        if (name ==null ){
+       /* if (name ==null ){
             name="";
-        }
+        }*/
         ModelAndView vm = new ModelAndView();
+        if (name!=null||name!=""){
+            vm.addObject("name",name);
+        }
+        if (internal!=null){
+            vm.addObject("internal",internal);
+        }
         List<UserInternal> list = meetUserService.findInternal(page, size, internal,name);
         PageInfo pageInfo = new PageInfo<UserInternal>(list);
         vm.addObject("pageInfo", pageInfo);

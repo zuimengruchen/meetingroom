@@ -16,7 +16,6 @@ pageEncoding="UTF-8"%>
     <link rel="stylesheet" href="${pageContext.request.contextPath }/vendor/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/vendor/font-awesome/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/css/styles.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/bootstrap.min.css">
     <script src="${pageContext.request.contextPath }/vendor/jquery/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath }/vendor/popper.js/popper.min.js"></script>
     <script src="${pageContext.request.contextPath }/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -27,126 +26,120 @@ pageEncoding="UTF-8"%>
 <body class="sidebar-fixed header-fixed" id="body">
 <div class="content">
     <div class="container-fluid">
-        <div class="card-header bg-light">
-            <div class="text-left">
-                <a href="#">首页</a><span>&nbsp&nbsp >&nbsp&nbsp  </span><a
-                    href="#">我的会议</a><span>&nbsp&nbsp >&nbsp&nbsp  </span><a href="#">会议室预定</a>
-                <a href="${pageContext.request.contextPath }/meetroom/calender"
-                   class="btn btn-primary" style="float: right;margin-right: 10px"><span class="fa fa-list"></span>日程</a>
-            </div>
-        </div>
-        <hr>
         <div class="row">
-
+            <div class="col-md-12 text-center">
+                <button class="btn btn-primary btn-lg" onclick="window.location.href=''"><span class="fa fa-list"></span>日程</button>
+                <button class="btn btn-success btn-lg"><span class="fa fa-arrow-circle-down"></span>资源</button>
+                <button class="btn btn-primary btn-sm" style="background-color: darkblue">空闲</button>
+                <button class="btn btn-secondary btn-sm">占用</button>
+                <br/><br/><br/>
+            </div>
             <div class="container-fluid">
                 <div class="row">
-                        <div class="col-md-12 bg-light">
+                    <div class="col-md-12 bg-light">
                         <div class="row">
                             <div class="col-md-2">
-                                <div class="form-group"  style="padding-top: 15px">
+                                <div class="form-group" >
                                     <select class="form-control" style="height: 35px ">
                                             <span class="fa fa-home">
-                                          <option selected="selected" id="c5539aa3-af34-463d-9415-1a7f8ae42727" value="c5539aa3-af34-463d-9415-1a7f8ae42727"> </span>WH</option>
-                                        <c:forEach items="${meetRoomArea}" var="area">
+                                                <c:forEach items="${meetRoomArea}" var="area">
                                                     <option id="${area.areaId}" value="${area.areaId}"> </span>${area.roomAreaName}</option>
                                         </c:forEach>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <div class="form-group" style="padding-top: 15px">
+                                <div class="form-group">
                                     <select id="meetBuilding" class="form-control" style="height: 35px ">
-                                        <option selected value="YMTC-OS1">YMTC-OS1</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <div class="form-group" style="padding-top: 15px;width: 150px">
+                                <div class="form-group" >
                                     <input id="date" type="date" class="form-control">
                                 </div>
                             </div>
-                            <script>
-                                $(document).ready(function () {
-                                    var time = new Date();
-                                    var day = ("0" + time.getDate()).slice(-2);
-                                    var month = ("0" + (time.getMonth() + 1)).slice(-2);
-                                    var today = time.getFullYear() + "-" + (month) + "-" + (day);
-                                    $('#date').val(today);
-                                })
-                            </script>
                             <div class="col-md-2">
-                                <div class="form-group" style="padding-top: 15px">
-                                    <input id="time" type="time" class="form-control" value="14:30">
+                                <div class="form-group" >
+                                    <input id="time" type="time" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-md-1" style="padding: 20px">
-                                <label class="control-label">时长:</label>
+                            <div class="col-md-1" style="padding: 10px">
+                                <label class="control-label">会议时长：  </label>
                             </div>
                             <div class="col-md-2">
-                                <div class="form-group" style="padding-top: 15px">
-                                    <input id="duration" type="time" class="form-control" value="01:00">
+                                <div class="form-group" >
+                                    <input id="duration" type="time" class="form-control">
                                 </div>
                             </div>
                         </div>
-                        </div>
-
                         <div class="col-md-12 mb-2">
                             <ul class="nav nav-tabs" role="tablist" id="floor">
                                 <li class="nav-item">
                                     <a class="nav-link active text-primary" data-toggle="tab" href="#home" role="tab"
-                                       aria-controls="home">5</a>
+                                       aria-controls="home">floor5</a>
                                 </li>
-
+                                <li class="nav-item">
+                                    <a class="nav-link text-primary" data-toggle="tab" href="#profile" role="tab"
+                                       aria-controls="profile">floor6</a>
+                                </li>
                             </ul>
 
                             <div class="tab-content" >
                                 <div class="tab-pane active" id="home" role="tabpanel">
 
                                     <div class="row" id="meetroom">
-                                     <c:forEach items="${meetRoom}"  var="list">
-                                        <div class="col-md-2">
 
+                                        <div class="col-md-2">
+                                            <div class="card ">
                                                 <div>
                                                     <img src="${pageContext.request.contextPath}/image/biaoqian.png" width="50px">
-                                                    <div style="position: absolute;left: 15px;top: 0px;color: whitesmoke"><span class="h5">${list.personCount}</span></div>
+                                                    <div style="position: absolute;left: 15px;top: 0px;color: whitesmoke"><span class="h5">12</span></div>
 
                                                     <div style="float: right;" >
                                                         <button  style="background-color: #ffffff; width:25px;height:25px;border: none;">
+
                                                             <img src="${pageContext.request.contextPath}/image/xingxing 2.png" width="20px" height="20px"></button>
                                                     </div>
                                                     <div style="float: right;display: none" >
                                                         <button  style="background-color: #ffffff; width:25px;height:25px;border: none;">
+
                                                             <img src="${pageContext.request.contextPath}/image/xingxing1.png" width="20px" height="20px"></button>
                                                     </div>
                                                     <center><img class="text-center" src="${pageContext.request.contextPath}/image/meet1.jpg " width="100%";></center>
+
+
                                                     <div class="card-footer bg-light text-center">
-                                                        <a href="${pageContext.request.contextPath }/meetroom/remmet?id=${list.roomId}&date=2019-05-5&time=14:30&duration=01:00" class="h6 text-warning">${list.roomName}</a>
+                                                        <a href="${pageContext.request.contextPath }/meetroom/remmet" class="h6 text-warning">B栋05014</a>
                                                     </div>
                                                 </div>
+                                            </div>
                                         </div>
-                                         </c:forEach>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+
+
+
 </body>
 <script type="text/javascript">
 
     $(document).ready(function () {
+
         $("select:first").click(function(){
             var url="meetbuilding";
             var key = $("select:first").val();
             if(key.length>0){
 
-                var data = {"key":key};
+                var data = {"key":key}
                 $("#meetBuilding").empty();
                 $.post(url,data,function(result){
                     $(result).each(function(){
@@ -154,6 +147,8 @@ pageEncoding="UTF-8"%>
                     })
                 },"json");
             }
+
+
         });
         $("#meetBuilding").click(function() {
             var url = "meetfloor";
@@ -165,7 +160,7 @@ pageEncoding="UTF-8"%>
             $.post(url, data, function (result) {
                 $(result).each(function () {
                     $("#floor").append("<li class=\"nav-item\">\n" +
-                        "                       <a class=\"nav-link   text-primary\" data-toggle=\"tab\" href=\"#"+this.roomFloor+"\" role=\"tab\"\n" +
+                        "                        <a class=\"nav-link   text-primary\" data-toggle=\"tab\" href=\"#"+this.roomFloor+"\" role=\"tab\"\n" +
                         "                    aria-controls=\""+this.roomFloor+"\">"+this.roomFloor+"</a>\n" +
                         "                        </li>")
                 })
@@ -194,6 +189,12 @@ pageEncoding="UTF-8"%>
                                 "\n" +
                                 " <img src=\"${pageContext.request.contextPath}/image/xingxing 2.png\" width=\"20px\" height=\"20px\"></button>\n" +
                                 "</div>")
+                            /*被收藏的星星*/
+                            /*   $row.append("<div style=\"float: right;\" >\n" +
+                                   "<button  style=\"background-color: #ffffff; width:25px;height:25px;border: none;\">\n" +
+                                   "\n" +
+                                   " <img src=\"/image/xingxing1.png\" width=\"20px\" height=\"20px\"></button>\n" +
+                                   "</div>")*/
                             //如果为视屏会议添加视屏小图标
                             if(this.roomType=="视屏会议室"){
                                 $row.append("<div style=\"float: right;\" >\n" +
@@ -213,23 +214,49 @@ pageEncoding="UTF-8"%>
                                     "</div>")
                             }
                             $row.appendTo($("#meetroom"))
+
                         })
                     }, "json");
+
+
+
+
+
                 })
+
+
+
+
+
             }, "json");
+
+
+
         })
 
+
+
+
+
+
+
         var a = 1;
+
+
         $("#shoucang1").click(function () {
             $("#xingxing1").hide();
             $("#xingxing2").show();
             alert("收藏成功")
+
         });
         $("#shoucang2").click(function () {
             $("#xingxing1").show()
             $("#xingxing2").hide();
             alert("取消收藏")
+
+
         });
+
     });
 
 

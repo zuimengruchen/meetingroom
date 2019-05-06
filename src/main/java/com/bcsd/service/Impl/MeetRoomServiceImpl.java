@@ -58,4 +58,9 @@ public class MeetRoomServiceImpl implements MeetRoomService {
         meetRoom.setLastUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         meetRoomDao.update(meetRoom);
     }
+
+    @Override
+    public List<MeetRoom> findRoomName(String areaid, String roombuilding, String roomfloor) {
+        return meetRoomDao.findRoomName(areaid,roombuilding,roomfloor);
+    }
 }

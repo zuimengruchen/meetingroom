@@ -30,41 +30,44 @@
         <div class="card-header bg-light">
             <a href="#">首页</a><span>&nbsp&nbsp >&nbsp&nbsp  </span>
             <a href="#">系统管理</a><span>&nbsp&nbsp >&nbsp&nbsp  </span><a href="#">字典管理</a>
+
+            <button class="btn btn-primary" style="float: right;margin-right: 10px"  id="delSelected">删除选中</button>
+            <a href="${pageContext.request.contextPath }/page/dict/dict_add.jsp"
+            class="btn btn-primary" style="float: right;margin-right: 10px">添加字典</a>
         </div>
         <hr>
         <div class="card-header bg-light">
             <div class="row">
                 <div class="col-md-12">
-
-                    <form  method="post" action="${pageContext.request.contextPath}/dict/deletes">
-                        <a href="${pageContext.request.contextPath }/page/dict/dict_add.jsp"
-                           class="btn btn-primary">添加字典</a>
-                        <button class="btn btn-primary"  id="delSelected">删除选中</button>
-
+                    <form action="${pageContext.request.contextPath }/dict/findPage" method="post">
+                        <input type="text" class="form-control" style="width: 200px;float: left;margin: 5px" placeholder="搜索" name="name" value="${name}">
+                        <button type="submit" class="btn btn-default" style="width: 60px;float: left;margin: 5px">搜索</button>
+                    </form>
+                    <form id="form"  method="post" action="${pageContext.request.contextPath}/dict/deletes">
                         <table class="table table-bordered text-center">
                             <thead>
                             <tr class="text-center">
-                                <th class="active text-center">
+                                <th class="active text-center" style="width: 50px">
                                     <input type="checkbox" id="firstCb" />
                                 </th>
-                                <th width="100px" class="col-md-2 text-center">名称</th>
-                                <th width="100px" class="col-md-2 text-center">字典编码</th>
-                                <th width="100px" class="col-md-2 text-center">详情</th>
-                                <th width="100px" class="col-md-2 text-center">备注</th>
-                                <th class="col-md-3 text-center">操作</th>
+                                <th class="text-center">名称</th>
+                                <th class="text-center">字典编码</th>
+                                <th class="text-center">详情</th>
+                                <th class="text-center">备注</th>
+                                <th class="text-center" style="width: 200px">操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             <c:forEach items="${pageInfo.list}" var="list">
                                 <tr>
-                                    <td class="active">
+                                    <td class="active" style="width: 50px">
                                         <input type="checkbox" name="dictId" value="${list.dictId}"/>
                                     </td>
                                     <td>${list.name}</td>
                                     <td>${list.code}</td>
                                     <td>${list.description}</td>
                                     <td>${list.pid}</td>
-                                    <td class="text-center">
+                                    <td class="text-center" style="width: 200px">
                                         <form class="navbar-form">
                                             <a href="${pageContext.request.contextPath}/dict/findOne?dictId=${list.dictId}"
                                                class="btn btn-default btn-sm">修改</a>
@@ -79,31 +82,11 @@
                             </tbody>
                         </table>
                     </form>
-                        <script>
-                            function deleteDict(id) {
-                            //alert(id);
-                            //用户安全提示
-                            if (confirm("您确定要删除吗？")) {
-                                //访问路径
-                                location.href = "${pageContext.request.contextPath}/dict/delete?dictId=" + id;
-                            }
-                        }
-                        </script>
 
-                        <div>
-                            <div class="pull-left">
-                                <div class="form-group form-inline">
-                                    总共${pageInfo.pages}页，共${pageInfo.total} 条数据。 每页
-                                    <select id="changePageSize" onchange="changePageSize()">
-                                        <option>5</option>
-                                        <option>4</option>
-                                        <option>3</option>
-                                        <option>2</option>
-                                        <option>1</option>
-                                    </select> 条
-                                </div>
-                            </div>
-                            <div>
+                    <div class="form-group form-inline">
+                        <div class="form-group form-inline">
+                            总共${pageInfo.pages}页，共${pageInfo.total} 条数据。 每页 10 条
+                        </div>&nbsp;&nbsp;
                                 <ul class="pagination">
                                     <li>
                                         <a href="${pageContext.request.contextPath}/dict/findPage?page=1&size=${pageInfo.pageSize}"
@@ -131,9 +114,7 @@
                                            aria-label="Next">尾页</a>
                                     </li>
                                 </ul>
-                            </div>
                         </div>
-
                 </div>
             </div>
         </div>
@@ -142,60 +123,40 @@
 </body>
 </html>
 
-<script type="text/javascript">
-
-
-    function changePageSize() {
-        //获取下拉框的值
-        var pageSize = $("#changePageSize").val();
-
-        //向服务器发送请求，改变没页显示条数
-        location.href = "${pageContext.request.contextPath}/dict/findPage?page=1&size=" + pageSize;
-    }
-
-    $("#selectAll").onclick(function () {
-        var clicks = $(this).is(':checked');
-        if (!clicks) {
-            $("#dataList td input[type='checkbox']").iCheck("uncheck");
-        } else {
-            $("#dataList td input[type='checkbox']").iCheck("check");
-        }
-        $(this).data("clicks", !clicks);
-    });
-
-
-    function deleteRoom(id){
-        //alert(1);
+<script>
+    function deleteDict(id) {
+        //alert(id);
         //用户安全提示
-        if(confirm("您确定要删除吗？")){
+        if (confirm("您确定要删除吗？")) {
             //访问路径
-            location.href="${pageContext.request.contextPath}/meet/delete?roomId="+id;
+            location.href = "${pageContext.request.contextPath}/dict/delete?dictId=" + id;
         }
     }
 
-    window.onload = function(){
+    window.onload = function () {
         //给删除选中按钮添加单击事件
-        document.getElementById("delSelected").onclick = function(){
-            if(confirm("您确定要删除选中条目吗？")){
+        document.getElementById("delSelected").onclick = function () {
+            if (confirm("您确定要删除选中条目吗？")) {
 
                 var flag = false;
                 //判断是否有选中条目
                 var cbs = document.getElementsByName("dictId");
                 for (var i = 0; i < cbs.length; i++) {
-                    if(cbs[i].checked){
+                    if (cbs[i].checked) {
+                        //alert(cbs[i]);
                         //有一个条目选中了
                         flag = true;
                         break;
                     }
                 }
-                if(flag){//有条目被选中
+                if (flag) {//有条目被选中
                     //表单提交
                     document.getElementById("form").submit();
                 }
             }
         };
         //1.获取第一个cb
-        document.getElementById("firstCb").onclick = function(){
+        document.getElementById("firstCb").onclick = function () {
             //2.获取下边列表中所有的cb
             var cbs = document.getElementsByName("dictId");
             //3.遍历

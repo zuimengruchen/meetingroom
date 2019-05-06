@@ -93,4 +93,14 @@ public class AppointmentServiceimpl implements AppointmentMeetService {
         PageHelper.startPage(page,size);
         return appointmentMeetDao.findHistoryUser(id);
     }
+
+    @Override
+    public Remeet findOne(Integer id) {
+        return appointmentMeetDao.findOne(id);
+    }
+
+    @Override
+    public void update(Remeet remeet) {
+        appointmentMeetDao.update(remeet);
+    }
 }

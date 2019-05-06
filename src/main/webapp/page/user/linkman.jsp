@@ -46,11 +46,11 @@
                         <form action="${pageContext.request.contextPath}/user/findInternal" method="post">
                             <div style="width: 200px;float: right;margin-top: 10px">
                                 <span>内部联系人: </span>
-                                <input type="radio"  name="internal" value="2" checked="checked">&nbsp;&nbsp;
+                                <input type="radio" name="internal" value="2" <c:if test="${internal=='2'}">checked="checked"</c:if>>&nbsp;&nbsp;
                                 <span>外部联系人: </span>
-                                <input type="radio" name="internal" value="1">
+                                <input type="radio"  name="internal" value="1"<c:if test="${internal=='1'}">checked="checked"</c:if>>
                             </div>
-                            <input type="text" class="form-control" style="width: 200px;float: left;margin: 5px" placeholder="搜索" name="name">
+                            <input type="text" class="form-control" style="width: 200px;float: left;margin: 5px" placeholder="搜索" name="name" value="${name}">
                             <button type="submit" class="btn btn-default" style="width: 60px;float: left;margin: 5px">搜索</button>
                         </form>
                         <form id="form" action="${pageContext.request.contextPath}/user/deleteInternals" method="post">

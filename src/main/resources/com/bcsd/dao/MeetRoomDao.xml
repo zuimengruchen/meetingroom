@@ -30,13 +30,29 @@
         insert into cj_meetroom (roomId,roomCode,areaId,roomArea,roomFloor,roomBuilding,roomName,personCount,roomStatus,createDate,createUser,lastUpdateDate,lastUpdateUser,manager,meetingSubDept,callIp,isStart,roomType) values (#{roomId})
     </insert>-->
 
+    <!--删除-->
     <delete id="delete" parameterType="java.lang.String">
         delete from cj_meetroom where roomId=#{roomId}
     </delete>
 
+    <!--修改-->
     <update id="update" parameterType="com.bcsd.entity.MeetRoom">
         update cj_meetroom set roomName=#{roomName},roomArea=#{roomArea},roomAreaName=#{roomAreaName},roomFloor=#{roomFloor},personCount=#{personCount},
         roomStatus=#{roomStatus},lastUpdateDate=#{lastUpdateDate},lastUpdateUser=#{lastUpdateUser},manager=#{manager},
         meetingsubdept=#{meetingSubdept},callIp=#{callIp},isStart=#{isStart},roomType=#{roomType} where roomId=#{roomId}
     </update>
+
+    <select id="findRoomName" resultType="com.bcsd.entity.MeetRoom">
+        select roomname from cj_meetroom where 1 = 1
+        <if test="areaid!=null ||areaid !=''">
+            and areaid =#{areaid}
+        </if>
+        <if test="roombuilding!=null ||roombuilding !=''">
+            and roombuilding =#{roombuilding}
+        </if>
+        <if test="roomfloor!=null ||roomfloor !=''">
+            and roomfloor =#{roomfloor}
+        </if>
+    </select>
+
 </mapper>

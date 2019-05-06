@@ -35,10 +35,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div>
-                        <form class="navbar-form navbar-right">
+                       <%-- <form class="navbar-form navbar-right">
                             <a href="javascript:sendMail('aa')"
                                class="btn btn-primary">发送</a>
-                        </form>
+                        </form>--%>
                     </div>
                     <div class="text-center">
                         <table class="table table-bordered text-center" id="dataList">
@@ -52,8 +52,8 @@
                                 <th class="text-center">邮件主题</th>
                                 <th class="text-center">邮件内容</th>
                                 <th class="text-center">创建时间</th>
-                                <th class="text-center">状态</th>
-                                <th class="text-center">操作</th>
+                                <th class="text-center" style="width: 80px">状态</th>
+                                <%--<th class="text-center">操作</th>--%>
                             </tr>
                             </thead>
                             <tbody>
@@ -83,12 +83,12 @@
 										    </c:otherwise>
 										</c:choose>
                                     </td>
-                                    <td class="text-center">
+                                    <%--<td class="text-center">
                                           <form class="navbar-form">
                                             <a href="javascript:sendMail(${list.id})"
                                                class="btn btn-default">发送</a>
                                         </form>
-                                    </td>
+                                    </td>--%>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -139,7 +139,7 @@
         var pageSize = $("#changePageSize").val();
 
         //向服务器发送请求，改变没页显示条数
-        location.href = "${pageContext.request.contextPath}/mail/findPage?page=1&size=" + pageSize;
+        location.href = "<%--${pageContext.request.contextPath}--%>/mail/findPage?page=1&size=" + pageSize;
     }*/
 
     $("#selectAll").click(function() {

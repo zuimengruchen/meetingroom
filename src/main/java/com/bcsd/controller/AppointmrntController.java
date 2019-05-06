@@ -1,5 +1,6 @@
 package com.bcsd.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bcsd.entity.*;
 import com.bcsd.service.AppointmentMeetService;
 import com.bcsd.service.MeetRoomService;
@@ -35,8 +36,8 @@ public class AppointmrntController {
     private ReMeetRoomService reMeetRoomService;
     @Autowired
     private MeetUserService meetUserService;
-    @Autowired
-    private AddUserService addUserService;
+
+
 
 
     @RequestMapping("videoremeet")
@@ -73,11 +74,12 @@ public class AppointmrntController {
     }
 
 
-
-
-
-
-
+    /**
+     * 查询我的预定会议
+     * @param page
+     * @param size
+     * @return
+     */
     @RequestMapping("myappointmeet")
     public ModelAndView myappointmeet(Integer page,Integer size){
         if(page==null||page==0){
@@ -113,6 +115,9 @@ public class AppointmrntController {
         id=1;
         List<HistoryMeet> list = appointmentMeetService.findPageHistory(page, size, id,meetName);
         ModelAndView vm=new ModelAndView();
+        if (meetName!=null||meetName!=""){
+            vm.addObject("meetName",meetName);
+        }
         PageInfo pageInfo = new PageInfo<HistoryMeet>(list);
         vm.addObject("pageInfo",pageInfo);
         vm.setViewName("page/meet_history");
@@ -142,5 +147,7 @@ public class AppointmrntController {
         vm.setViewName("page/user/historymeet");
         return vm;
     }
+
+
 
 }

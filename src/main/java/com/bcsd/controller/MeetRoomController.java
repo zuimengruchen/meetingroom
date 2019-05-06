@@ -47,6 +47,9 @@ public class MeetRoomController {
         List<MeetRoom> meetRoomList = meetRoomService.findAll(page,size,roomName);
         PageInfo pageInfo=new PageInfo<MeetRoom>(meetRoomList);
         vm.addObject("pageInfo",pageInfo);
+        if (roomName!=null||roomName!=""){
+            vm.addObject("roomName",roomName);
+        }
         vm.setViewName(PREFIX);
         return vm;
     }
@@ -122,4 +125,6 @@ public class MeetRoomController {
         }
         return "redirect:findAll";
     }
+
+
 }

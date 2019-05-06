@@ -38,10 +38,10 @@ pageEncoding="UTF-8"%>
             <div class="row">
                 <div class="col-md-12">
                     <form action="${pageContext.request.contextPath }/meetroom/myappointmeet" method="post">
-                        <input type="text" class="form-control" style="width: 200px;float: left;margin: 5px" placeholder="搜索" name="meetName">
+                        <input type="text" class="form-control" style="width: 200px;float: left;margin: 5px" placeholder="搜索" name="meetName" value="${meetName}">
                         <button type="submit" class="btn btn-default" style="width: 60px;float: left;margin: 5px">搜索</button>
                     </form>
-                    <form method="post" action="${pageContext.request.contextPath}/"><%--批量取消会议--%>
+                    <form method="post" action="${pageContext.request.contextPath}/addUser/deleteUser" id="form"><%--批量取消会议--%>
                        <%-- <input type="text" class="form-control" style="width: 200px;float: left;margin: 5px" placeholder="搜索">
                         <button type="submit" class="btn btn-default" style="width: 60px;float: left;margin: 5px">搜索</button>--%>
 
@@ -54,6 +54,7 @@ pageEncoding="UTF-8"%>
                             <th class="text-center">开始时间</th>
                             <th class="text-center">会议室</th>
                             <th class="text-center">距离开会时间:</th>
+                            <th class="text-center">操作:</th>
                         </tr>
                         </thead>
                         <div class="CollagePeople-bot">
@@ -71,7 +72,14 @@ pageEncoding="UTF-8"%>
                                     <td class="text-center">${list.meetType}</td>
                                     <td class="text-center">${list.meetDate}</td>
                                     <td class="text-center">${list.meetRoomName}</td>
-                                    <td class="text-center" style="color: red"> <span class="intDifftime" endTime="${list.meetDate}">会议正在进行</span></td>
+                                    <td class="text-center" style="width:200px;color: red"> <span class="intDifftime" endTime="${list.meetDate}">会议正在进行</span></td>
+                                    <td class="text-center">
+                                        <form class="navbar-form">
+                                            <a class="btn btn-default" href="${pageContext.request.contextPath}/meetroom/findOne?id=${list.id}">修改</a>
+                                        <a class="btn btn-danger btn-sm"
+                                           href="javascript:deleteMeet(${list.id});">取消</a>
+                                        </form>
+                                    </td>
                                 </tr>
                             </c:if>
                         </c:forEach>
@@ -121,13 +129,13 @@ pageEncoding="UTF-8"%>
 
 </body>
 <script>
-    function deleteRoom(id) {
+    function deleteMeet(id) {
         //alert(1);
         //用户安全提示
         if (confirm("您确定要取消吗？")) {
             alert("取消成功!");
             //访问路径
-           // location.href = "${pageContext.request.contextPath}/meet/delete?roomId=" + id;
+           //location.href = "${pageContext.request.contextPath}/addUser/deleteUser?id="+id;
         }
     }
 

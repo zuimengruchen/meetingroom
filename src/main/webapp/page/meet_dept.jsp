@@ -43,7 +43,7 @@ pageEncoding="UTF-8"%>
                 <div class="col-md-12">
                     <div >
                         <form action="${pageContext.request.contextPath }/dept/findAll" method="post">
-                            <input type="text" class="form-control" style="width: 200px;float: left;margin: 5px" placeholder="搜索" name="deptName">
+                            <input type="text" class="form-control" style="width: 200px;float: left;margin: 5px" placeholder="搜索" name="deptName" value="${deptName}">
                             <button type="submit" class="btn btn-default" style="width: 60px;float: left;margin: 5px">搜索</button>
                         </form>
                         <table class="table table-bordered">

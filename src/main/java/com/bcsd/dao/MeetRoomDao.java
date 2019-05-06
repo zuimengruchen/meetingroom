@@ -18,4 +18,6 @@ public interface MeetRoomDao {
     void delete(String id);
 
     void update(MeetRoom meetRoom);
+
+    List<MeetRoom> findRoomName(@Param("areaid") String areaid, @Param("roombuilding")String roombuilding, @Param("roomfloor")String roomfloor);
 }

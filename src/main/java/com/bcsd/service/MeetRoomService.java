@@ -20,4 +20,6 @@ public interface MeetRoomService {
     void delete(String id);
 
     void update(MeetRoom meetRoom);
+
+    List<MeetRoom> findRoomName(String areaid, String roombuilding, String roomfloor);
 }

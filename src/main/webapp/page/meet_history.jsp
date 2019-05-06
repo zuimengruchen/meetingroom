@@ -39,7 +39,7 @@
                    <%-- <input type="text" class="form-control" style="width: 200px;float: left;margin: 5px" placeholder="搜索">
                     <button type="submit" class="btn btn-default" style="width: 60px;float: left;margin: 5px">搜索</button>--%>
                        <form action="${pageContext.request.contextPath }/appointreet/history" method="post">
-                           <input type="text" class="form-control" style="width: 200px;float: left;margin: 5px" placeholder="搜索" name="meetName">
+                           <input type="text" class="form-control" style="width: 200px;float: left;margin: 5px" placeholder="搜索" name="meetName" value="${meetName}">
                            <button type="submit" class="btn btn-default" style="width: 60px;float: left;margin: 5px">搜索</button>
                        </form>
                     <table class="table table-bordered">

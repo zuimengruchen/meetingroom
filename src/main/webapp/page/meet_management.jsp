@@ -46,7 +46,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <form action="${pageContext.request.contextPath }/meet/findAll" method="post">
-                        <input type="text" class="form-control" style="width: 200px;float: left;margin: 5px" placeholder="搜索" name="roomName">
+                        <input type="text" class="form-control" style="width: 200px;float: left;margin: 5px" placeholder="搜索" name="roomName" value="${roomName}">
                         <button type="submit" class="btn btn-default" style="width: 60px;float: left;margin: 5px">搜索</button>
                     </form>
                     <form method="post" action="${pageContext.request.contextPath}/meet/deletes">

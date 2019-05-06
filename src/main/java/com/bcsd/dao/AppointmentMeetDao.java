@@ -37,4 +37,8 @@ public interface AppointmentMeetDao {
 
     //会议结束
       void endMeet(Integer meetId);
+
+    Remeet findOne(Integer id);
+
+    void update(Remeet remeet);
 }

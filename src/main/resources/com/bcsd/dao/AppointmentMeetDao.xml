@@ -62,5 +62,14 @@
           where h.mid=m.id and h.uid=u.id and h.mid=#{id}
     </select>
 
+    <select id="findOne" parameterType="java.lang.Integer" resultType="com.bcsd.entity.Remeet">
+        select * from cj_appointment_meeting where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.bcsd.entity.Remeet">
+        update cj_appointment_meeting  set meetName=#{meetName},meetDate=#{meetDate},meetTime=#{meetTime},
+        meetLaber=#{meetLaber},meetDescription=#{meetDescription},meetRoomId=#{meetRoomId},meetType=#{meetType},statu=#{statu},meetRoomName=#{meetRoomName}
+        where id=#{id}
+    </update>
 
 </mapper>

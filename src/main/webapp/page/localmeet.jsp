@@ -14,6 +14,7 @@ pageEncoding="UTF-8"%>
     <link rel="stylesheet" href="${pageContext.request.contextPath }/vendor/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/vendor/font-awesome/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/css/styles.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/bootstrap.min.css">
     <script src="${pageContext.request.contextPath }/vendor/jquery/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath }/vendor/popper.js/popper.min.js"></script>
     <script src="${pageContext.request.contextPath }/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -190,8 +191,8 @@ pageEncoding="UTF-8"%>
 
                         </div>
 
-                        <center>	<input type="submit" class="btn btn-primary btn-lg"  value="确定"  onclick="if(confirm('确认预定会议    ？')==false)return false;" ></input>&nbsp;
-                            <button type="button" class="btn btn-info btn-lg" onclick="window.history.back(-1)">返回</button></center>
+                        <center>	<input type="submit" class="btn btn-primary"  value="确定"  onclick="if(confirm('确认预定会议    ？')==false)return false;" ></input>&nbsp;
+                            <button type="button" class="btn btn-info" onclick="window.history.back(-1)">返回</button></center>
                     </div>
 
                 </div>

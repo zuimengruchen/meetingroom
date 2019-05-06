@@ -8,7 +8,6 @@
     <!--查询areaId 会议室名称-->
     <select id="findArea" resultType="com.bcsd.entity.MeetRoom">
         select areaid ,roomareaname from cj_meetroom group by areaid
-
     </select>
 
     <select id="findBuilding" resultType="com.bcsd.entity.MeetRoom">

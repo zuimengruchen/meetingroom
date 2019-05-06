@@ -38,4 +38,10 @@ public interface AppointmentMeetService {
     List<HistoryMeet> findPageHistory(Integer page, Integer size, Integer id,String meetName);
 
     List<User> findHistoryUser(Integer page, Integer size, Integer id);
+
+    //查询会议
+    Remeet findOne(Integer id);
+
+    //修改会议
+    void update(Remeet remeet);
 }
