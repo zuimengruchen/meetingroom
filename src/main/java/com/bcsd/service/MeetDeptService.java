@@ -1,6 +1,7 @@
 package com.bcsd.service;
 
 import com.bcsd.entity.MeetDept;
+import com.bcsd.entity.MeetLimitUser;
 import com.bcsd.entity.MeetRoom;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface MeetDeptService {
     void add(MeetDept meetDept);
 
     void delect(String  id);
+
+    List<MeetLimitUser> findByUser(Integer id);
 }

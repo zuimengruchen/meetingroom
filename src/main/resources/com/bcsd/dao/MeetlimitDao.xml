@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bcsd.dao.MeetLimitDao">
+
+
+    <select id="findByUser" parameterType="Integer" resultType="com.bcsd.entity.MeetLimitUser">
+SELECT u.id,u.username,u.email,u.tel,d.deptname,r.rolename
+FROM cj_user u,cj_dept d,cj_user_role ur,cj_role r
+WHERE  u.deptid=d.deptid AND u.id=ur.userid AND ur.roleid =r.id AND r.id=#{id}
+</select>
+    <select id="findBylimit" parameterType="Integer" resultType="com.bcsd.entity.MeetLimit">
+
+        SELECT  m.menuname,p.according,p.operation,p.ALL,p.thisdept,p.sddept,p.thisaccount,p.id FROM cj_role
+        r,cj_role_menu rm,cj_menu m,cj_ps p WHERE r.id=rm.roleid AND rm.menuid=m.id AND m.id = p.id AND r.id=#{id}
+    </select>
+
+</mapper>

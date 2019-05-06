@@ -34,21 +34,21 @@
     <!-- 把交给IOC管理 SqlSessionFactory -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:com/bcsd/dao/*.xml"/>
         <!-- 传入PageHelper的插件 -->
-       <!-- <property name="plugins">
-            <array>
-                &lt;!&ndash; 传入插件的对象 &ndash;&gt;
-                <bean class="com.github.pagehelper.PageInterceptor">
-                    <property name="properties">
-                        <props>
-                            <prop key="helperDialect">oracle</prop>
-                            <prop key="reasonable">true</prop>
-                        </props>
-                    </property>
-                </bean>
-            </array>
-        </property>-->
-        <property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml"></property>
+        <!-- <property name="plugins">
+             <array>
+                 &lt;!&ndash; 传入插件的对象 &ndash;&gt;
+                 <bean class="com.github.pagehelper.PageInterceptor">
+                     <property name="properties">
+                         <props>
+                             <prop key="helperDialect">oracle</prop>
+                             <prop key="reasonable">true</prop>
+                         </props>
+                     </property>
+                 </bean>
+             </array>
+         </property>-->
     </bean>
     <!-- 扫描dao接口 -->
     <bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -62,13 +62,6 @@
     </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
-
-
-    <!-- task任务扫描注解 -->
-    <task:annotation-driven />
-
-    <!-- 扫描任务 -->
-    <context:component-scan base-package="com.bcsd.task" />
 
 
 
