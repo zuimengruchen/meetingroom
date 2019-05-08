@@ -2,6 +2,7 @@ package com.bcsd.service.Impl;
 
 import com.bcsd.dao.MeetDeptDao;
 import com.bcsd.entity.MeetDept;
+import com.bcsd.entity.MeetLimitUser;
 import com.bcsd.entity.MeetRoom;
 import com.bcsd.service.MeetDeptService;
 import com.github.pagehelper.PageHelper;
@@ -45,5 +46,11 @@ public class MeetDeptServiceImpl implements MeetDeptService {
 
     public void delect(String id) {
         meetDeptDao.delete(id);
+    }
+
+    @Override
+    public List<MeetLimitUser> findByUser(Integer id) {
+        List<MeetLimitUser> byUser = meetDeptDao.findByUser(id);
+        return byUser;
     }
 }

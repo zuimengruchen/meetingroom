@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
 
+         pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <%@ page isELIgnored="false"%>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>会议管理系统</title>
+
     <link rel="stylesheet" href="${pageContext.request.contextPath }/vendor/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/vendor/font-awesome/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/css/styles.css">
@@ -20,7 +22,76 @@ pageEncoding="UTF-8"%>
     <script src="${pageContext.request.contextPath }/vendor/chart.js/chart.min.js"></script>
     <script src="${pageContext.request.contextPath }/js/carbon.js"></script>
     <script src="${pageContext.request.contextPath }/js/demo.js"></script>
+
+
 </head>
+<script type="text/javascript">
+    $(function () {
+        var url="../limit/findbyuser";
+        var data = {"id":1};
+        $("#tal").empty();
+        $.post(url,data,function(result){
+            $(result).each(function(){
+
+                $("#tal").append("<tr><td>"+this.username+"</td><td>"+this.deptname+"</td><td>"+this.email+"</td><td>"+this.tel+"</td></tr>");
+
+
+                // $("#tal").append("<tr><td></td><td>\"+this.username+\"</td><td>\"+this.deptname+\"</td><td>"+this.email+"</td><td>"+this.deleteLinkman()+"</td></tr>")
+
+            })
+        },"json");
+
+        $(".aclass").click(function () {
+            var id = $(this).attr('type')
+               if (id==1) {
+            var url="../limit/findbyuser";
+            var data = {"id":id};
+            $("#tal").empty();
+            $.post(url,data,function(result){
+                $(result).each(function(){
+
+                    $("#tal").append("<tr><td>"+this.username+"</td><td>"+this.deptname+"</td><td>"+this.email+"</td><td>"+this.tel+"</td></tr>");
+
+
+                    // $("#tal").append("<tr><td></td><td>\"+this.username+\"</td><td>\"+this.deptname+\"</td><td>"+this.email+"</td><td>"+this.deleteLinkman()+"</td></tr>")
+
+                })
+            },"json");
+               } else if (id==2){
+                 var url="../limit/findbyuser";
+                 var data = {"id":id};
+                   $("#tal1").empty();
+                 $.post(url,data,function(result){
+                     $(result).each(function(){
+
+                         $("#tal1").append("<tr><td>"+this.username+"</td><td>"+this.deptname+"</td><td>"+this.email+"</td><td>"+this.tel+"</td></tr>");
+
+
+                         // $("#tal").append("<tr><td></td><td>\"+this.username+\"</td><td>\"+this.deptname+\"</td><td>"+this.email+"</td><td>"+this.deleteLinkman()+"</td></tr>")
+
+                     })
+                 },"json");
+               }else {
+            var url="../limit/findbyuser";
+                 var data = {"id":id};
+                   $("#tal2").empty();
+                 $.post(url,data,function(result){
+                     $(result).each(function(){
+
+                         $("#tal2").append("<tr><td>"+this.username+"</td><td>"+this.deptname+"</td><td>"+this.email+"</td><td>"+this.tel+"</td></tr>");
+
+
+                         // $("#tal").append("<tr><td></td><td>\"+this.username+\"</td><td>\"+this.deptname+\"</td><td>"+this.email+"</td><td>"+this.deleteLinkman()+"</td></tr>")
+
+                     })
+                 },"json");
+               }
+        })
+    })
+
+
+
+</script>
 <body class="sidebar-fixed header-fixed">
 <div class="content">
     <div class="container-fluid">
@@ -35,24 +106,25 @@ pageEncoding="UTF-8"%>
                 <div class="col-md-2">
                     <div >
                         <div class="card-title">
-                            <div class="caption">
-                                <p class="modal-title"><span>角色编辑</span>&nbsp;&nbsp;
-                                    <button  class="btn-primary" data-toggle="modal" data-target="#login">添加</button>
-                            </div>
                             <hr>
 
                             <div style="width: 120px">
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active " data-toggle="tab" href="#manager" role="tab" aria-controls="manager">管理员</a>
+                                        <a class="nav-link active aclass" id="manager1" type="1"  data-toggle="tab"
+                                           href="#manager"
+                                           role="tab"
+                                           aria-controls="manager">管理员</a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#review" role="tab" aria-controls="review">会议审批员</a>
+                                        <a class="nav-link aclass" type="2"  data-toggle="tab" href="#review" role="tab"
+                                           aria-controls="review">会议审批员</a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#user" role="tab" aria-controls="user">普通用户</a>
+                                        <a class="nav-link aclass" type="10" data-toggle="tab" href="#user" role="tab"
+                                           aria-controls="user">普通用户</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" data-toggle="tab" href="#room" role="tab" aria-controls="room">会议室权限</a>
@@ -76,44 +148,27 @@ pageEncoding="UTF-8"%>
                                 </li>
                             </ul>
                             <div class="tab-content">
-                                <div class="tab-pane active" id="home1" role="tabpanel">
-                                    <table class="table  table-light">
+                                <div class="tab-pane active bclass1" id="home1" role="tabpanel">
+                                    <table class="table  table-light" id="tal">
                                         <thead class="bg-light-grey">
                                         <tr class="uppercase">
-                                            <th> <input  type="checkbox" >
-                                            </th>
                                             <th>用户名</th>
                                             <th>职位</th>
                                             <th>邮箱</th>
                                             <th>手机号</th>
                                         </tr>
-                                        <tr  class="ng-scope">
-                                            <td width="20">
-                                                <input type="checkbox" >
-                                            </td>
-                                            <td >张世</td>
-                                            <td>技术部</td>
-                                            <td>259@qq.com</td>
-                                            <td>15758690685</td>
-                                        </tr>
-                                        <tr  class="ng-scope">
-                                            <td width="20">
-                                                <input type="checkbox" >
-                                            </td>
-                                            <td >张世</td>
-                                            <td>技术部</td>
-                                            <td>259@qq.com</td>
-                                            <td>15758690685</td>
-                                        </tr>
-                                        <tr  class="ng-scope">
-                                            <td width="20">
-                                                <input type="checkbox" >
-                                            </td>
-                                            <td >张世</td>
-                                            <td>技术部</td>
-                                            <td>259@qq.com</td>
-                                            <td>15758690685</td>
-                                        </tr>
+                                            <%--<c:forEach items="${byuser}" var="list">--%>
+                                        <%--<tr  class="ng-scope">--%>
+                                            <%--<td width="20">--%>
+                                                <%--<input type="checkbox" >--%>
+                                            <%--</td>--%>
+                                            <%--<td >${list.username}</td>--%>
+                                            <%--<td>${list.deptname}</td>--%>
+                                            <%--<td>${list.email}</td>--%>
+                                            <%--<td>${list.tel}</td>--%>
+                                        <%--</tr>--%>
+                                        <%--</c:forEach>--%>
+
                                         </thead>
                                     </table>
                                 </div>
@@ -137,635 +192,23 @@ pageEncoding="UTF-8"%>
                                         </tr>
 
                                         </thead>
-                                        <tbody>
+                                        <tbody id="tbo">
                                         <!-- ngRepeat: privilege in privilegeList -->
                                         <tr data-ng-repeat="privilege in privilegeList" class="ng-scope">
                                             <td width="20">
-                                                <label class="ui-checkbox"><input name="checkbox1"
-                                                                                  type="checkbox"
-
-                                                                                  class="ng-pristine ng-untouched ng-valid"></label>
+                                                <label class="ui-checkbox">
+                                                    <input name="checkbox1" type="checkbox" class="ng-pristine ng-untouched ng-valid"></label>
                                             </td>
                                             <td class="ng-binding">我的会议</td>
-                                            <td><label class="ui-checkbox"><input
-
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--显示/隐藏 -->
-                                            <td><label class="ui-checkbox"><input
-
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--读 -->
-                                            <td><label class="ui-checkbox"><input
-
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--写-->
-                                            <td><label class="ui-radio"><input  name="radio_9"
-
-                                                                                type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input  name="radio_9"
-
-                                                                                type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input  name="radio_9"
-
-                                                                                type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input  name="radio_9"
-
-                                                                                type="radio"
-                                                                                checked="checked"><span></span></label>
-                                            </td>
+                                            <td><label class="ui-checkbox"><input name="checkbox1" type="checkbox" class="ng-pristine ng-untouched ng-valid" checked="checked"><span></span></label></td><!--显示/隐藏 -->
+                                            <td><label class="ui-checkbox"><input name="checkbox1" type="checkbox" class="ng-pristine ng-untouched ng-valid" checked="checked"><span></span></label></td><!--读 -->
+                                            <td><label class="ui-checkbox"><input name="checkbox1" type="checkbox" class="ng-pristine ng-untouched ng-valid" checked="checked"><span></span></label></td><!--写-->
+                                            <td><label class="ui-radio"><input  name="radio_9" type="radio"><span></span></label></td>
+                                            <td><label class="ui-radio"><input  name="radio_9" type="radio"><span></span></label></td>
+                                            <td><label class="ui-radio"><input  name="radio_9" type="radio"><span></span></label></td>
+                                            <td><label class="ui-radio"><input  name="radio_9" type="radio" checked="checked"><span></span></label></td>
                                         </tr><!-- end ngRepeat: privilege in privilegeList -->
-                                        <tr data-ng-repeat="privilege in privilegeList" class="ng-scope">
-                                            <td width="20">
-                                                <label class="ui-checkbox"><input name="checkbox1"
-                                                                                  type="checkbox"
 
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td>
-                                            <td class="ng-binding">所有会议</td>
-                                            <td><label class="ui-checkbox"><input
-
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td><!--显示/隐藏 -->
-                                            <td><label class="ui-checkbox"><input
-
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td><!--读 -->
-                                            <td><label class="ui-checkbox"><input
-
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td><!--写-->
-                                            <td><label class="ui-radio"><input
-                                                    name="radio_17"
-
-                                                    type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                    name="radio_17"
-
-                                                    type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                    name="radio_17"
-
-                                                    type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                    name="radio_17"
-
-                                                    type="radio"><span></span></label>
-                                            </td>
-                                        </tr><!-- end ngRepeat: privilege in privilegeList -->
-                                        <tr data-ng-repeat="privilege in privilegeList" class="ng-scope">
-                                            <td width="20">
-                                                <label class="ui-checkbox"><input name="checkbox1"
-                                                                                  type="checkbox"
-
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td>
-                                            <td class="ng-binding">本地会议</td>
-                                            <td><label class="ui-checkbox"><input
-
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--显示/隐藏 -->
-                                            <td><label class="ui-checkbox"><input
-
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--读 -->
-                                            <td><label class="ui-checkbox"><input
-
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--写-->
-                                            <td><label class="ui-radio"><input
-                                                    name="radio_15"
-
-                                                    type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                    name="radio_15"
-
-                                                    type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                    name="radio_15"
-
-                                                    type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                    name="radio_15"
-
-                                                    type="radio"
-                                                    checked="checked"><span></span></label>
-                                            </td>
-                                        </tr><!-- end ngRepeat: privilege in privilegeList -->
-                                        <tr data-ng-repeat="privilege in privilegeList" class="ng-scope">
-                                            <td width="20">
-                                                <label class="ui-checkbox"><input name="checkbox1"
-                                                                                  type="checkbox"
-
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td>
-                                            <td class="ng-binding">视频会议</td>
-                                            <td><label class="ui-checkbox"><input
-
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--显示/隐藏 -->
-                                            <td><label class="ui-checkbox"><input
-
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--读 -->
-                                            <td><label class="ui-checkbox"><input
-
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--写-->
-                                            <td><label class="ui-radio"><input id="scope0_14"
-                                                                               name="radio_14"
-
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                    name="radio_14"
-
-                                                    type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                    name="radio_14"
-
-                                                    type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                    name="radio_14"
-
-                                                    type="radio"
-                                                    checked="checked"><span></span></label>
-                                            </td>
-                                        </tr><!-- end ngRepeat: privilege in privilegeList -->
-                                        <tr data-ng-repeat="privilege in privilegeList" class="ng-scope">
-                                            <td width="20">
-                                                <label class="ui-checkbox"><input name="checkbox1"
-                                                                                  type="checkbox"
-
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td>
-                                            <td class="ng-binding">电话会议</td>
-                                            <td><label class="ui-checkbox"><input
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--显示/隐藏 -->
-                                            <td><label class="ui-checkbox"><input
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--读 -->
-                                            <td><label class="ui-checkbox"><input
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--写-->
-                                            <td><label class="ui-radio"><input
-                                                    name="radio_12"
-                                                    type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                    name="radio_12"
-                                                    type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                    name="radio_12"
-                                                    type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                    name="radio_12"
-                                                    type="radio"
-                                                    checked="checked"><span></span></label>
-                                            </td>
-                                        </tr><!-- end ngRepeat: privilege in privilegeList -->
-                                        <tr data-ng-repeat="privilege in privilegeList" class="ng-scope">
-                                            <td width="20">
-                                                <label class="ui-checkbox"><input name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td>
-                                            <td class="ng-binding">会议室权限</td>
-                                            <td><label class="ui-checkbox"><input
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--显示/隐藏 -->
-                                            <td><label class="ui-checkbox"><input
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--读 -->
-                                            <td><label class="ui-checkbox"><input
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--写-->
-                                            <td><label class="ui-radio"><input
-                                                    name="radio_16"
-                                                    type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                    name="radio_16"
-                                                    type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                    name="radio_16"
-                                                    type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                    name="radio_16"
-                                                    type="radio"
-                                                    checked="checked"><span></span></label>
-                                            </td>
-                                        </tr><!-- end ngRepeat: privilege in privilegeList -->
-                                        <tr data-ng-repeat="privilege in privilegeList" class="ng-scope">
-                                            <td width="20">
-                                                <label class="ui-checkbox"><input name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td>
-                                            <td class="ng-binding">会议审批</td>
-                                            <td><label class="ui-checkbox"><input
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--显示/隐藏 -->
-                                            <td><label class="ui-checkbox"><input
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--读 -->
-                                            <td><label class="ui-checkbox"><input
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--写-->
-                                            <td><label class="ui-radio"><input  name="radio_8"
-                                                                                type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input  name="radio_8"
-                                                                                type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input  name="radio_8"
-                                                                                data-ng-click="updatePrivilegeScope(roleListRoleId,privilege.id,2)"
-                                                                                type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input  name="radio_8"
-                                                                                type="radio"
-                                                                                checked="checked"><span></span></label>
-                                            </td>
-                                        </tr><!-- end ngRepeat: privilege in privilegeList -->
-                                        <tr data-ng-repeat="privilege in privilegeList" class="ng-scope">
-                                            <td width="20">
-                                                <label class="ui-checkbox"><input name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td>
-                                            <td class="ng-binding">用户管理</td>
-                                            <td><label class="ui-checkbox"><input
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--显示/隐藏 -->
-                                            <td><label class="ui-checkbox"><input
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--读 -->
-                                            <td><label class="ui-checkbox"><input id="isWrite_10"
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"
-                                                                                  checked="checked"><span></span></label>
-                                            </td><!--写-->
-                                            <td><label class="ui-radio"><input
-                                                                               name="radio_10"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input id="scope1_10"
-                                                                               name="radio_10"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                                               name="radio_10"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input id="scope3_10"
-                                                                               name="radio_10"
-                                                                               type="radio"
-                                                                               checked="checked"><span></span></label>
-                                            </td>
-                                        </tr><!-- end ngRepeat: privilege in privilegeList -->
-                                        <tr data-ng-repeat="privilege in privilegeList" class="ng-scope">
-                                            <td width="20">
-                                                <label class="ui-checkbox"><input name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td>
-                                            <td class="ng-binding">会议室管理</td>
-                                            <td><label class="ui-checkbox"><input
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"
-                                                                                  checked="checked"><span></span></label>
-                                            </td><!--显示/隐藏 -->
-                                            <td><label class="ui-checkbox"><input
-                                                    name="checkbox1"
-                                                    type="checkbox"
-                                                    class="ng-pristine ng-untouched ng-valid"
-                                                    checked="checked"><span></span></label>
-                                            </td><!--读 -->
-                                            <td><label class="ui-checkbox"><input
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"
-                                                                                  checked="checked"><span></span></label>
-                                            </td><!--写-->
-                                            <td><label class="ui-radio"><input
-                                                                               name="radio_13"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                                               name="radio_13"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                                               name="radio_13"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                                               name="radio_13"
-                                                                               type="radio"
-                                                                               checked="checked"><span></span></label>
-                                            </td>
-                                        </tr><!-- end ngRepeat: privilege in privilegeList -->
-                                        <tr data-ng-repeat="privilege in privilegeList" class="ng-scope">
-                                            <td width="20">
-                                                <label class="ui-checkbox"><input name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td>
-                                            <td class="ng-binding">mcu管理</td>
-                                            <td><label class="ui-checkbox"><input
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td><!--显示/隐藏 -->
-                                            <td><label class="ui-checkbox"><input
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td><!--读 -->
-                                            <td><label class="ui-checkbox"><input
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td><!--写-->
-                                            <td><label class="ui-radio"><input
-                                                                               name="radio_11"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                                               name="radio_11"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                                               name="radio_11"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input
-                                                                               name="radio_11"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                        </tr><!-- end ngRepeat: privilege in privilegeList -->
-                                        <tr data-ng-repeat="privilege in privilegeList" class="ng-scope">
-                                            <td width="20">
-                                                <label class="ui-checkbox"><input name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td>
-                                            <td class="ng-binding">资源管理</td>
-                                            <td><label class="ui-checkbox"><input
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td><!--显示/隐藏 -->
-                                            <td><label class="ui-checkbox"><input
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"
-                                                                                  checked="checked"><span></span></label>
-                                            </td><!--读 -->
-                                            <td><label class="ui-checkbox"><input
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td><!--写-->
-                                            <td><label class="ui-radio"><input id="scope0_1" name="radio_1"
-                                                                               type="radio"
-                                                                               checked="checked"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input id="scope1_1" name="radio_1"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input id="scope2_1" name="radio_1"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input id="scope3_1" name="radio_1"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                        </tr><!-- end ngRepeat: privilege in privilegeList -->
-                                        <tr data-ng-repeat="privilege in privilegeList" class="ng-scope">
-                                            <td width="20">
-                                                <label class="ui-checkbox"><input name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td>
-                                            <td class="ng-binding">权限管理</td>
-                                            <td><label class="ui-checkbox"><input id="isShow_2"
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td><!--显示/隐藏 -->
-                                            <td><label class="ui-checkbox"><input id="isRead_2"
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"
-                                                                                  checked="checked"><span></span></label>
-                                            </td><!--读 -->
-                                            <td><label class="ui-checkbox"><input id="isWrite_2"
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td><!--写-->
-                                            <td><label class="ui-radio"><input id="scope0_2" name="radio_2"
-                                                                               type="radio"
-                                                                               checked="checked"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input id="scope1_2" name="radio_2"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input id="scope2_2" name="radio_2"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input id="scope3_2" name="radio_2"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                        </tr><!-- end ngRepeat: privilege in privilegeList -->
-                                        <tr data-ng-repeat="privilege in privilegeList" class="ng-scope">
-                                            <td width="20">
-                                                <label class="ui-checkbox"><input name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td>
-                                            <td class="ng-binding">日志管理</td>
-                                            <td><label class="ui-checkbox"><input id="isShow_5"
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td><!--显示/隐藏 -->
-                                            <td><label class="ui-checkbox"><input id="isRead_5"
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td><!--读 -->
-                                            <td><label class="ui-checkbox"><input id="isWrite_5"
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td><!--写-->
-                                            <td><label class="ui-radio"><input id="scope0_5" name="radio_5"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input id="scope1_5" name="radio_5"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input id="scope2_5" name="radio_5"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input id="scope3_5" name="radio_5"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                        </tr><!-- end ngRepeat: privilege in privilegeList -->
-                                        <tr data-ng-repeat="privilege in privilegeList" class="ng-scope">
-                                            <td width="20">
-                                                <label class="ui-checkbox"><input name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td>
-                                            <td class="ng-binding">权限管理</td>
-                                            <td><label class="ui-checkbox"><input id="isShow_4"
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td><!--显示/隐藏 -->
-                                            <td><label class="ui-checkbox"><input id="isRead_4"
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td><!--读 -->
-                                            <td><label class="ui-checkbox"><input id="isWrite_4"
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td><!--写-->
-                                            <td><label class="ui-radio"><input id="scope0_4" name="radio_4"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input id="scope1_4" name="radio_4"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input id="scope2_4" name="radio_4"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input id="scope3_4" name="radio_4"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                        </tr><!-- end ngRepeat: privilege in privilegeList -->
-                                        <tr data-ng-repeat="privilege in privilegeList" class="ng-scope">
-                                            <td width="20">
-                                                <label class="ui-checkbox"><input name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td>
-                                            <td class="ng-binding">配置管理</td>
-                                            <td><label class="ui-checkbox"><input id="isShow_7"
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td><!--显示/隐藏 -->
-                                            <td><label class="ui-checkbox"><input id="isRead_7"
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td><!--读 -->
-                                            <td><label class="ui-checkbox"><input id="isWrite_7"
-                                                                                  name="checkbox1"
-                                                                                  type="checkbox"
-                                                                                  class="ng-pristine ng-untouched ng-valid"><span></span></label>
-                                            </td><!--写-->
-                                            <td><label class="ui-radio"><input id="scope0_7" name="radio_7"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input id="scope1_7" name="radio_7"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input id="scope2_7" name="radio_7"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                            <td><label class="ui-radio"><input id="scope3_7" name="radio_7"
-                                                                               type="radio"><span></span></label>
-                                            </td>
-                                        </tr><!-- end ngRepeat: privilege in privilegeList -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -789,33 +232,13 @@ pageEncoding="UTF-8"%>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="home2" role="tabpanel">
-                                    <table class="table  table-light">
+                                    <table class="table  table-light" id="tal1">
                                         <thead class="bg-light-grey">
                                         <tr class="uppercase">
-                                            <th> <input  type="checkbox" >
-                                            </th>
                                             <th>用户名</th>
                                             <th>职位</th>
                                             <th>邮箱</th>
                                             <th>手机号</th>
-                                        </tr>
-                                        <tr  class="ng-scope">
-                                            <td width="20">
-                                                <input type="checkbox" >
-                                            </td>
-                                            <td >张世</td>
-                                            <td>技术部</td>
-                                            <td>259@qq.com</td>
-                                            <td>15758690685</td>
-                                        </tr>
-                                        <tr  class="ng-scope">
-                                            <td width="20">
-                                                <input type="checkbox" >
-                                            </td>
-                                            <td >张世</td>
-                                            <td>技术部</td>
-                                            <td>259@qq.com</td>
-                                            <td>15758690685</td>
                                         </tr>
 
                                         </thead>
@@ -845,10 +268,7 @@ pageEncoding="UTF-8"%>
                                         <!-- ngRepeat: privilege in privilegeList -->
                                         <tr data-ng-repeat="privilege in privilegeList" class="ng-scope">
                                             <td width="20">
-                                                <label class="ui-checkbox"><input name="checkbox1"
-                                                                                  type="checkbox"
-
-                                                                                  class="ng-pristine ng-untouched ng-valid"></label>
+                                                <label class="ui-checkbox"><input name="checkbox1" type="checkbox" class="ng-pristine ng-untouched ng-valid"></label>
                                             </td>
                                             <td class="ng-binding">我的会议</td>
                                             <td><label class="ui-checkbox"><input
@@ -1493,25 +913,15 @@ pageEncoding="UTF-8"%>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="home3" role="tabpanel">
-                                    <table class="table  table-light">
+                                    <table class="table  table-light" id="tal2">
                                         <thead class="bg-light-grey">
                                         <tr class="uppercase">
-                                            <th> <input  type="checkbox" >
-                                            </th>
                                             <th>用户名</th>
                                             <th>职位</th>
                                             <th>邮箱</th>
                                             <th>手机号</th>
                                         </tr>
-                                        <tr  class="ng-scope">
-                                            <td width="20">
-                                                <input type="checkbox" >
-                                            </td>
-                                            <td >张世</td>
-                                            <td>技术部</td>
-                                            <td>259@qq.com</td>
-                                            <td>15758690685</td>
-                                        </tr>
+
                                         </thead>
                                     </table>
                                 </div>

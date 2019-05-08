@@ -27,4 +27,10 @@ DELETE FROM cj_dept WHERE deptid=#{deptid}
 
 </delete>
 
+    <select id="findByUser" parameterType="Integer" resultType="com.bcsd.entity.MeetLimitUser">
+SELECT u.id,u.username,u.email,u.tel,d.deptname,r.rolename
+FROM cj_user u,cj_dept d,cj_user_role ur,cj_role r
+WHERE  u.deptid=d.deptid AND u.id=ur.userid AND ur.roleid =r.id AND r.id=#{id}
+</select>
+
 </mapper>
