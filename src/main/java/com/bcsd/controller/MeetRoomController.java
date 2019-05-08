@@ -54,6 +54,31 @@ public class MeetRoomController {
         return vm;
     }
 
+    /**
+     * 查询所有会议室
+     * @param
+     * @return
+     */
+    @RequestMapping("/findAllRoom")
+    public ModelAndView findAllRoom(Integer page,Integer size,String roomName){
+        if(page==null||page==0){
+            page=1;
+        }
+        if(size==null||size==0){
+            size=10;
+        }
+        System.out.println("查询所有会议室");
+        ModelAndView vm=new ModelAndView();
+        List<MeetRoom> meetRoomList = meetRoomService.findAll(page,size,roomName);
+        PageInfo pageInfo=new PageInfo<MeetRoom>(meetRoomList);
+        vm.addObject("pageInfo",pageInfo);
+        if (roomName!=null||roomName!=""){
+            vm.addObject("roomName",roomName);
+        }
+        vm.setViewName("page/meeting/meeting_list");
+        return vm;
+    }
+
 
     /**
      * 查询会议室信息
@@ -126,5 +151,9 @@ public class MeetRoomController {
         return "redirect:findAll";
     }
 
+    @RequestMapping("/findRoom")
+    public void findRoomByCondition(){
+
+    }
 
 }

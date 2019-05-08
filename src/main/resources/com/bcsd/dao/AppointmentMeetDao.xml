@@ -68,7 +68,7 @@
 
     <update id="update" parameterType="com.bcsd.entity.Remeet">
         update cj_appointment_meeting  set meetName=#{meetName},meetDate=#{meetDate},meetTime=#{meetTime},
-        meetLaber=#{meetLaber},meetDescription=#{meetDescription},meetRoomId=#{meetRoomId},meetType=#{meetType},statu=#{statu},meetRoomName=#{meetRoomName}
+        meetLaber=#{meetLaber},meetDescription=#{meetDescription},meetRoomId=#{meetRoomId},meetType=#{meetType},meetRoomName=#{meetRoomName}
         where id=#{id}
     </update>
 

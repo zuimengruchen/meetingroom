@@ -35,8 +35,6 @@ public class ReMeetRoomController {
     private HistoryMeetService historyMeetService;
     @Autowired
     private AddUserService addUserService;
-    @Autowired
-    private MeetUserService meetUserService;
 
     /**
      * 查询所有
@@ -59,6 +57,19 @@ public class ReMeetRoomController {
         vm.setViewName("page/home");
         return vm;
     }
+
+    /**
+     * 查询地区
+     * @param
+     * @return
+     */
+    @RequestMapping(value="/meetarea", produces={"application/json;charset=utf-8"})
+    @ResponseBody
+    public Object meetarea(){
+        String result =JSONObject.toJSONString(reMeetRoomService.findArea());
+        return result;
+    }
+
     /**
      * 查询大楼
      * @param
@@ -83,6 +94,18 @@ public class ReMeetRoomController {
     public Object roomfloor(@RequestParam(value="area") String area,@RequestParam(value="building") String building){
             String result =JSONObject.toJSONString(reMeetRoomService.findFloor(area,building));
             return result;
+    }
+    /**
+     * 修改会议室
+     * @param
+     * @return
+     */
+    @RequestMapping(value="/updateMeetRoom",method= RequestMethod.POST,
+            produces={"application/json;charset=utf-8"})
+    @ResponseBody
+    public Object updateMeetRoom(@RequestParam(value="areaId") String areaId,@RequestParam(value="building") String building,@RequestParam(value="floor") String floor,@RequestParam(value="roomId")String roomId){
+        String result =JSONObject.toJSONString(reMeetRoomService.updateMeetRoom(areaId,building,floor,roomId));
+        return result;
     }
 
 
@@ -202,7 +225,6 @@ public class ReMeetRoomController {
     public ModelAndView appointmmet(Remeet remeet){
         ModelAndView vm=new ModelAndView();
         //增加数据进去
-
         List<UserInternal> user =addUserService.findUserByMeetId(String.valueOf(remeet.getId()));
         appointmentMeetService.appointmentMeet(remeet,user);
         List<Remeet> meets=appointmentMeetService.findPage(1,10);
@@ -233,7 +255,14 @@ public class ReMeetRoomController {
     }
 
 
-
+    /**
+     * 查询预定会议
+     * @param page
+     * @param size
+     * @param meetName
+     * @param session
+     * @return
+     */
     @RequestMapping("myappointmeet")
     public ModelAndView myappointmeet(Integer page,Integer size,String meetName,HttpSession session){
         if(page==null||page==0){
@@ -299,8 +328,11 @@ public class ReMeetRoomController {
      * 修改会议
      */
     @RequestMapping("/update")
-    public void update(Remeet remeet){
+    public String update(Remeet remeet,@RequestParam(value = "date")String date,@RequestParam(value = "time")String time){
+        String datetime =date.trim()+" "+time.trim();
+        remeet.setMeetDate(datetime);
         appointmentMeetService.update(remeet);
+        return "redirect:myappointmeet";
     }
 
     /**
@@ -319,5 +351,13 @@ public class ReMeetRoomController {
         vm.addObject("time",split[1]);
         vm.setViewName("page/meeting/meeting_update");
         return vm;
+    }
+
+    /**
+     * 查询重复会议
+     */
+    @RequestMapping("/repeatMeeting")
+    public void repeatMeeting(){
+
     }
 }

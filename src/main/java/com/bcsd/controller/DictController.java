@@ -137,26 +137,4 @@ public class DictController  {
     }
 
 
-
-
- /* @RequestMapping("/list")
-    public ModelAndView list(String condition){
-        Page page=new Page();
-        Page<Map<String, Object>> list = dictService.list(page, condition);
-        return null;
-    }*/
-
-    /*@RequestMapping("/dict_add")
-    public String deptAddType() {
-        return PREFIX + "dict_add.html";
-    }
-
-
-    @RequestMapping("/dict_add_item")
-    public String deptAddItem(@RequestParam("dictId") Long dictId, Model model) {
-        model.addAttribute("dictTypeId", dictId);
-        //model.addAttribute("dictTypeName", ConstantFactory.me().getDictName(dictId));
-        return PREFIX + "dict_add_item.html";
-    }*/
-
 }

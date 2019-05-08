@@ -96,7 +96,6 @@ pageEncoding="UTF-8"%>
                                     <a class="nav-link active text-primary" data-toggle="tab" href="#home" role="tab"
                                        aria-controls="home">5</a>
                                 </li>
-
                             </ul>
 
                             <div class="tab-content" >
@@ -145,7 +144,6 @@ pageEncoding="UTF-8"%>
             var url="meetbuilding";
             var key = $("select:first").val();
             if(key.length>0){
-
                 var data = {"key":key};
                 $("#meetBuilding").empty();
                 $.post(url,data,function(result){

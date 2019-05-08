@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -25,26 +25,21 @@
 <body class="sidebar-fixed header-fixed">
 <div class="content">
 	<div class="container-fluid">
-		<div class="row">
-
-			<div class="col-md-12 text-center">
-
-				<button class="btn btn-primary btn-lg" onclick="window.location.href='home.html'"><span class="fa fa-home"></span>会议室</button>
-				<button class="btn btn-success btn-lg"><span class="fa fa-arrow-circle-down"></span>资源</button>
-				<button class="btn btn-primary btn-sm" style="background-color: darkblue">空闲</button>
-				<button class="btn btn-secondary btn-sm">占用</button>
-				<br /><br />
-
+		<div class="card-header bg-light">
+			<div class="text-left">
+				<a href="#">首页</a><span>&nbsp&nbsp >&nbsp&nbsp  </span><a
+					href="#">我的会议</a><span>&nbsp&nbsp >&nbsp&nbsp  </span><a href="#">日程</a>
 			</div>
 		</div>
 	</div>
+	<br>
 
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12 bg-light">
 				<div class="row">
 					<div class="col-md-2">
-						<div class="form-group">
+						<div class="form-group" style="padding-top: 15px">
 							<select  class="form-control">
                                             <span class="fa fa-home">
                                            <option> </span>WH</option>
@@ -56,7 +51,7 @@
 
 					</div>
 					<div class="col-md-2">
-						<div class="form-group">
+						<div class="form-group" style="padding-top: 15px">
 
 							<select  class="form-control">
 								<option>YMTC</option>
@@ -71,8 +66,8 @@
 
 
 
-					<div class="col-md-2">
-						<select class="form-control">
+					<div class="col-md-2" style="padding-top: 15px">
+						<select class="form-control" >
 							<option>8</option>
 							<option>7</option>
 							<option>6</option>
@@ -89,9 +84,9 @@
 				<div class=" col-md-12 form-group  bg-light ">
 					<div class="row">
 
-						<label  class=" form-control col-md-2 bg-light " style="border: 0px">状态:<button  style="background-color: #98fb98" class="btn"></button>占用</label>
+						<label  class=" form-control col-md-2 bg-light " style="border: 0px">状态 :&nbsp;<button  style="background-color: #98fb98" class="btn"></button>占用</label>
 
-						<input id="time" style="height: 34px" class="form-control col-3" type="date" class="form-control" >
+						<input id="time" style="height: 35px;width: 200px" class="form-control col-3" type="date" class="form-control" >
 					</div>
 				</div>
 
@@ -204,12 +199,6 @@
 
 
 
-
-
-
-
-
-
 								</tr>
 								<tr ><td style=' font-size: 19px'height='10px'>B0831</td>
 									<td></td>  <td></td>  <td></td>  <td></td>
@@ -252,13 +241,9 @@
 						</div>
 
 						<div id="meetx"  style="background-color: white;width: 300px;height: 150px;display: none">
-							<p class="form-control" style="border: 0px">时间:2019-04-19 08-30~09:30</p>
+							<p class="form-control" style="border: 0px">时间:2019-04-19 08:30~09:30</p>
 							<p class="form-control"  style="border: 0px">主题：test</p>
 							<p class="form-control"  style="border: 0px"    >预定人：马邦德</p>
-
-
-
-
 						</div>
 
 					</div>
@@ -280,12 +265,12 @@
 
 
 
-<script src="./vendor/jquery/jquery.min.js"></script>
-<script src="./vendor/popper.js/popper.min.js"></script>
-<script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="./vendor/chart.js/chart.min.js"></script>
-<script src="./js/carbon.js"></script>
-<script src="./js/demo.js"></script>
+<script src="${pageContext.request.contextPath }/vendor/jquery/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath }/vendor/popper.js/popper.min.js"></script>
+<script src="${pageContext.request.contextPath }/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath }/vendor/chart.js/chart.min.js"></script>
+<script src="${pageContext.request.contextPath }/js/carbon.js"></script>
+<script src="${pageContext.request.contextPath }/js/demo.js"></script>
 
 
 </body>
@@ -304,11 +289,11 @@
 	var now=year+'-'+getNow(month)+"-"+getNow(date)
 
 	$(document).ready(function(){
-		$("#meet1").mousemove(function(){
+		$("#meetx").mousemove(function(){
 			$("#meetx").show();
 
 		})
-		$("#meet1").mouseleave(function(){
+		$("#meetx").mouseleave(function(){
 			$("#meetx").hide();
 
 		})
@@ -323,15 +308,38 @@
 
 
 		for(var i=1;i<5;i++){
-			$("table").append("<tr class='tr'><td style=' font-size: 19px'height='10px'>B082"+i+"</td></tr>")
+			var ids="#tr"+i;
+			$("table").append("<tr id='tr"+i+"'><td style=' font-size: 19px'height='10px'>B082"+i+"</td></tr>")
 
 
+			for (var j=1;j<14;j++){
+				$(ids).append("<td></td><td></td><td></td><td></td>")
+			}
+
+			// for (var j=1;j<14;j++){
+			// 	if(i==1) {
+			// 		if (j == 7 || j == 4) {
+			// 			if (k == 1) {
+			// 				$(ids).append("<td bgcolor=\"#98fb98\" colspan='4'></td>")
+			// 				k = -1;
+			// 			} else if (k == 2) {
+			// 				$(ids).append("<td></td><td bgcolor=\"#98fb98\" colspan='4'></td>")
+			// 				k = -1;
+			// 			} else if (k == 3) {
+			// 				$(ids).append("<td></td><td></td><td bgcolor=\"#98fb98\" colspan='4'></td>")
+			// 				k = -1;
+			// 			} else if(k==4){
+			// 				$(ids).append("<td></td><td></td><td></td><td bgcolor=\"#98fb98\" colspan='4'></td>")
+			// 				k = -1;
+			// 			}
+			// 		}
+			// 		} else {
+			// 			$(ids).append("<td></td><td></td><td></td><td></td>")
+			// 	}
+			// }
 		}
-		for (var j=1;j<14;j++){
-			$(".tr").append("<td></td>  <td></td>  <td></td>  <td></td>")
-		}
 
-		var choosetime=$("#time").val();
+					var choosetime=$("#time").val();
 
 	})
 

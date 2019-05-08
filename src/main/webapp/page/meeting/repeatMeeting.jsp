@@ -42,9 +42,7 @@ pageEncoding="UTF-8"%>
                         <button type="submit" class="btn btn-default" style="width: 60px;float: left;margin: 5px">搜索</button>
                     </form>
                     <form method="post" action="${pageContext.request.contextPath}/addUser/deleteUser" id="form"><%--批量取消会议--%>
-                       <%-- <input type="text" class="form-control" style="width: 200px;float: left;margin: 5px" placeholder="搜索">
-                        <button type="submit" class="btn btn-default" style="width: 60px;float: left;margin: 5px">搜索</button>--%>
-                        <a href="${pageContext.request.contextPath }/page/meeting/repeatMeeting.jsp" class="btn btn-default"style="width: 100px;float: right;margin: 5px">循环会议</a>
+                        <a href="${pageContext.request.contextPath }/page/meeting/repeatMeeting.jsp" class="btn btn-default"style="width: 100px;float: right;margin: 5px">本地会议</a>
                     <table class="table table-bordered">
                         <thead>
                         <tr>
@@ -135,19 +133,14 @@ pageEncoding="UTF-8"%>
         if (confirm("您确定要取消吗？")) {
             alert("取消成功!");
             //访问路径
-           //location.href = "${pageContext.request.contextPath}/addUser/deleteUser?id="+id;
+           //location.href = "<%--${pageContext.request.contextPath}--%>/addUser/deleteUser?id="+id;
         }
     }
 
-   /* var a = '<%=request.getAttribute("msg")%>';
-    if (a == null){
-       // alert(a)
-    }else {
-        alert(a);
-    }*/
+    var a = '<%=request.getAttribute("msg")%>';
+    
 
     window.onload = function () {
-
         //给删除选中按钮添加单击事件
         document.getElementById("delSelected").onclick = function () {
             if (confirm("您确定要删除选中条目吗？")) {

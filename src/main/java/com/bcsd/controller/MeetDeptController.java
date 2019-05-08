@@ -25,6 +25,13 @@ public class MeetDeptController {
     @Autowired
     private MeetDeptService meetDeptService;
 
+    /**
+     * 分页查询
+     * @param page
+     * @param size
+     * @param deptName
+     * @return
+     */
     @RequestMapping("/findAll")
     public ModelAndView findAll(Integer page,Integer size,String deptName){
         if (page==null||page==0){
@@ -34,6 +41,7 @@ public class MeetDeptController {
             size=10;
         }
         ModelAndView vm=new ModelAndView();
+        //回显查询条件
         if (deptName!=null||deptName!=""){
             vm.addObject("deptName",deptName);
         }
@@ -44,6 +52,12 @@ public class MeetDeptController {
         return vm;
 
     }
+
+    /**
+     * 查询部门
+     * @param deptid
+     * @return
+     */
     @RequestMapping("/findByid")
     public ModelAndView findByid(@RequestParam(value = "deptid") String deptid){
 

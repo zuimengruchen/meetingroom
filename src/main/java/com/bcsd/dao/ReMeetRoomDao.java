@@ -30,4 +30,5 @@ public interface ReMeetRoomDao {
     List<Appointment_Meeting> findByDate(@Param("startTime") String startTime, @Param("endTime") String endTime);
 
 
+   // List<MeetRoom> updateMeetRoom(String areaId, String building, String floor, String roomId);
 }

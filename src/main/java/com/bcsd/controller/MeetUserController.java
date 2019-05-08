@@ -101,14 +101,8 @@ public class MeetUserController {
 
     @RequestMapping("/add")
     public String add(MeetUser meetUser) {
-//        String uuid = String.valueOf(UUID.randomUUID());
-//        String[] split = uuid.split("-");
-//        meetUser.setId(split[2]);
         meetUserService.add(meetUser);
         MeetUserRole meetUserRole = new MeetUserRole();
-//        meetUserRole.setRoleid(meetUser.getRolename());
-//        meetUserRole.setId(split[1]);
-//        meetUserRole.setUserid(meetUser.getId());
         meetUserService.addid(meetUserRole);
         return "forward:findAll";
     }
@@ -159,16 +153,6 @@ public class MeetUserController {
         return "redirect:findInternal";
     }
 
-    /**
-     * 添加外部联系人
-     * @param internal
-     * @return
-     *//*
-    @RequestMapping("/addExternal")
-    public String addExternal(UserInternal internal) {
-        meetUserService.addInternal(internal);
-        return "redirect:findInternal";
-    }*/
 
     /**
      * 删除联系人
